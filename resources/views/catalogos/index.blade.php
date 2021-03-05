@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Usuarios'.' | '.config('app.name'))
+@section('title',  'catalogos'  .' | '.config('app.name'))
 
 @section('style')
 <link href="{{ asset('assets/css/pages/tables/style.css')}}" rel="stylesheet" type="text/css" />
@@ -18,7 +18,7 @@
                 <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                 <span class="kt-subheader__breadcrumbs-separator"></span>
                 <a href="" class="kt-subheader__breadcrumbs-link">
-                Crear</a>
+                {{ $titulo }}</a>
             </div>
         </div>
     </div>
@@ -56,14 +56,14 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                   Usuarios
+                   {{ $titulo }}
                 </h3>
             </div>
-            @can('usuarios.create')
+            @can('catalogos.create')
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <div class="kt-portlet__head-actions">
-                        <a href="{{ url ('admin/usuarios/create')}}" class="btn btn-brand btn-elevate btn-icon-sm">
+                        <a href="{{ url ('admin/catalogos/create')}}" class="btn btn-brand btn-elevate btn-icon-sm">
                             <i class="la la-plus"></i>
                             Crear
                         </a>
@@ -80,42 +80,40 @@
                 <tr>
                     <th>Id</th>
                     <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Email</th>
+                    <th>Opción</th>
                     <th>Estado</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($data as $users)
+                @foreach ($data as $catalogos)
                 <tr class="gradeX">
-                    <td>{{$users->id}}</td>
-                    <td>{{$users->name}}</td>
-                    <td>{{$users->last}}</td>                     
-                    <td>{{$users->email}}</td>
-                    <td>                     
-                    @can('usuarios.active')        
-                    @if ($users->status==1)
-                        <form method="post" action="{{ url('admin/usuarios/'.$users->id.'/inactive')}}">
+                    <td>{{$catalogos->id}}</td>
+                    <td>{{$catalogos->nombre}}</td>
+                    <td>{{$catalogos->opcion}}</td>
+                    <td>          
+                    @can('catalogos.active')                   
+                    @if ($catalogos->status==1)
+                        <form method="post" action="{{ url('admin/catalogos/'.$catalogos->id.'/inactive')}}">
                             {{ csrf_field() }}
                             <button type="submit" rel="tooltip" title="Cambiar" class="btn btn-warning btn-elevate btn-pill btn-elevate-air btn-sm"> Inactivar <i class="fa fa-repeat"></i></button>
                         </form>
-
                     @else
-                        <form method="post" action="{{ url('admin/usuarios/'.$users->id.'/active')}}">
+                        <form method="post" action="{{ url('admin/catalogos/'.$catalogos->id.'/active')}}">
                             {{ csrf_field() }}
-                            <button type="submit" rel="tooltip" title="Cambiar" class="btn btn-success btn-elevate btn-pill btn-elevate-air btn-sm"> Activar<i class="fa fa-repeat"></i></button>
+                            <button type="submit" rel="tooltip" title="Cambiar" class="btn btn-success btn-elevate btn-pill btn-elevate-air btn-sm"> Activar <i class="fa fa-repeat"></i></button>
                         </form>
-                    @endif        
-                    @endcan                
+                    @endif     
+                    @endcan                   
                     </td>
                     <td>
-                    @can('usuarios.edit')
-                        <a href="{{ url('admin/usuarios/'.$users->id.'/edit')}}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                    @can('catalogos.edit')
+                        <a href="{{ url('admin/catalogos/'.$catalogos->id.'/edit')}}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit">
                           <i class="la la-edit"></i>
                         </a>
                     @endcan
                     </td>
+
                 </tr>
                 @endforeach 
                 </tbody>
@@ -123,8 +121,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Email</th>
+                    <th>Opción</th>
                     <th>Estado</th>
                     <th></th>
                 </tr>
@@ -151,7 +148,7 @@
 <script>
 $(document).ready(function(){
     $('.dataTables-example').DataTable({
-        "order": [[ 2 ,"asc" ]], //or asc 
+        "order": [[ 0 ,"asc" ]], //or asc 
         pageLength: 25,
         responsive: true,
         dom: '<"html5buttons"B>lTfgitp',
@@ -173,8 +170,8 @@ $(document).ready(function(){
             }*/
         ],
         "language":{
-            "info": "_TOTAL_ records",
-            "search": "Buscar",
+            "info": "_TOTAL_ registros",
+            "search": "Search",
             "paginate":{
                 "next": "Siguiente",
                 "previous": "Anterior",
@@ -183,7 +180,7 @@ $(document).ready(function(){
                         '<option value="10">10</option>'+
                         '<option value="30">30</option>'+
                         '<option value="-1">Todo</option>'+
-                        '</select> records | ',
+                        '</select> registros | ',
             "loadingRecords": "Cargando...",
             "processing": "Procesando...",
             "emptyTable": "No hay datos",

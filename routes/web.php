@@ -51,19 +51,20 @@ Route::middleware(['auth'])->group(function(){
 |--------------------------------------------------------------------------
 |
 */
-	Route::post('admin/usuarios/store', 'UserController@store');
-	Route::get('admin/usuarios', 'UserController@index');
-	Route::get('admin/usuarios/create', 'UserController@create');
-	Route::post('admin/usuarios/{id}/edit', 'UserController@update');
-	Route::get('admin/usuarios/{role}', 'UserController@show');
-	Route::delete('admin/usuarios/{id}', 'UserController@destroy');
-	Route::get('admin/usuarios/{id}/edit', 'UserController@edit');
-	Route::post('admin/usuarios/{id}/active', 'UserController@active');
-	Route::post('admin/usuarios/{id}/inactive', 'UserController@inactive');
+	Route::post('admin/usuarios/store', 'UserController@store')->middleware('permiso:usuarios.store'); 
+	Route::get('admin/usuarios', 'UserController@index')->middleware('permiso:usuarios.index'); 
+	Route::get('admin/usuarios/create', 'UserController@create')->middleware('permiso:usuarios.create'); 
+	Route::post('admin/usuarios/{id}/edit', 'UserController@update')->middleware('permiso:usuarios.update'); 
+	Route::get('admin/usuarios/{role}', 'UserController@show')->middleware('permiso:usuarios.show'); 
+	Route::delete('admin/usuarios/{id}', 'UserController@destroy')->middleware('permiso:usuarios.destroy'); 
+	Route::get('admin/usuarios/{id}/edit', 'UserController@edit')->middleware('permiso:usuarios.edit'); 
+	Route::post('admin/usuarios/{id}/active', 'UserController@active')->middleware('permiso:usuarios.active'); 
+	Route::post('admin/usuarios/{id}/inactive', 'UserController@inactive')->middleware('permiso:usuarios.inactive'); 
+	Route::post('admin/usuarios/pwd', 'UserController@pwd')->name('usuarios.pwd'); 
 
-	Route::get('admin/perfil', 'UserController@show');
-	Route::get('admin/perfil/{id}/edit', 'UserController@editarperfil');
-	Route::post('admin/perfil/{id}/edit', 'UserController@updateperfil');
+	Route::get('admin/perfil', 'UserController@show')->middleware('permiso:usuarios.show'); 
+	Route::get('admin/perfil/{id}/edit', 'UserController@editarperfil')->middleware('permiso:usuarios.editarperfil'); 
+	Route::post('admin/perfil/{id}/edit', 'UserController@updateperfil')->middleware('permiso:usuarios.updateperfil'); 
 
 
 /*
@@ -114,6 +115,22 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('admin/paises/{id}/edit', 'PaisesController@edit')->middleware('permiso:paises.edit'); 
 	Route::post('admin/paises/{id}/active', 'PaisesController@active')->middleware('permiso:paises.active'); 
 	Route::post('admin/paises/{id}/inactive', 'PaisesController@inactive')->middleware('permiso:paises.inactive'); 
+
+/*
+|--------------------------------------------------------------------------
+| Catálogos
+|--------------------------------------------------------------------------
+|
+*/
+	Route::post('admin/catalogos/store', 'CatalogosController@store')->middleware('permiso:catalogos.store'); 
+	Route::get('admin/catalogos', 'CatalogosController@index')->middleware('permiso:catalogos.index'); 
+	Route::get('admin/catalogos/create', 'CatalogosController@create')->middleware('permiso:catalogos.create'); 
+	Route::post('admin/catalogos/{id}/edit', 'CatalogosController@update')->middleware('permiso:catalogos.update'); 
+	Route::delete('admin/catalogos/{id}', 'CatalogosController@destroy')->middleware('permiso:catalogos.destroy'); 
+	Route::get('admin/catalogos/{id}/edit', 'CatalogosController@edit')->middleware('permiso:catalogos.edit'); 
+	Route::post('admin/catalogos/{id}/active', 'CatalogosController@active')->middleware('permiso:catalogos.active'); 
+	Route::post('admin/catalogos/{id}/inactive', 'CatalogosController@inactive')->middleware('permiso:catalogos.inactive'); 
+
 
 
 

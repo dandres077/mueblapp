@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    Bienvenido a Gidesco.
+                    Bienvenido a Mueblapp.
                 </div>
             </div>
         </div>

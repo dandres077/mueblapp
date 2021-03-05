@@ -78,28 +78,14 @@
                                             <div class="col-9">
                                             <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}">
                                             </div>
-                                        </div>                                        
+                                        </div>         
 
                                         <div class="form-group row">
-                                            <label class="col-3 col-form-label">Contraseña</label>
+                                            <label class="col-3 col-form-label">Contrase&ntilde;a</label>
                                             <div class="col-9">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend"><span class="input-group-text"><i class="la la-at"></i></span></div>
-                                                    <input type="password" class="form-control" id="password" name="password" value="{{ old('password') }}">
-                                                </div>
+                                                <button type="button" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_modal_5">Cambiar</button>
                                             </div>
-                                        </div> 
-
-                                        <div class="form-group row">
-                                            <label class="col-3 col-form-label">Colegios</label>
-                                            <div class="col-9">
-                                                <select class="form-control" name="colegio_id" id="colegio_id">
-                                                @foreach ($colegios as $colegios)
-                                                    <option value="{{$colegios->id}}" @if($user->colegio_id==$colegios->id) selected @endif> {{ $colegios->nombre, $user->colegio_id }}</option>
-                                                @endforeach                                               
-                                                </select>
-                                            </div>
-                                        </div>
+                                        </div>                               
 
                                         <div class="form-group row">
                                             <label class="col-3 col-form-label">Rol</label>
@@ -142,6 +128,35 @@
         </div>
     </div>
 </div>
+
+<!--begin::Modal-->
+<div class="modal fade" id="kt_modal_5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Actualizar contrase&ntilde;a</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{{ url('admin/usuarios/pwd')}}" autocomplete="off">
+                {{ csrf_field()}}
+                    <div class="form-group">
+                        <label for="recipient-name" class="form-control-label">Contrase&ntilde;a:</label>
+                        <input type="hidden" class="form-control" name="user_id" value="{{ $id }}">
+                        <input type="password" class="form-control" name="password">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--end::Modal-->
 
 <!-- end:: Content -->
 

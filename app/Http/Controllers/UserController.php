@@ -23,13 +23,9 @@ class UserController extends Controller
         //$data = User::all();
 
         $data = DB::table('users')
-            ->leftJoin('empresas', 'users.colegio_id', '=', 'empresas.id')
-            ->select(
-                'users.*',
-                'empresas.nombre AS nom_empresa')
-            ->orderByRaw('users.id ASC')
-            ->get();
-
+                    ->select('users.*')
+                    ->orderByRaw('id ASC')
+                    ->get();
 
         return view ('usuarios.index')->with (compact('data'));
 
@@ -44,9 +40,8 @@ class UserController extends Controller
     {
 
         $roles = Role::get();
-        $colegios = DB::table('colegios')->select('id', 'nombre')->where('status', 1 )->orderByRaw('nombre ASC')->get();
 
-        return view ('usuarios.create')->with (compact('roles', 'colegios'));
+        return view ('usuarios.create')->with (compact('roles'));
 
     }
 
@@ -61,7 +56,6 @@ class UserController extends Controller
         $user->last = $request->input('last');
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
-        $user->colegio_id = $request->input('colegio_id');
     	$user->save();
 
         $user->roles()->sync($request->get('roles'));        
@@ -82,9 +76,7 @@ class UserController extends Controller
             ->where('model_id', '=', $id)
             ->get();
 
-        $colegios = DB::table('colegios')->select('id', 'nombre')->where('status', 1 )->orderByRaw('nombre ASC')->get();
-
-        return view ('usuarios.edit')->with(compact('user', 'roles', 'rol_user', 'colegios'));
+        return view ('usuarios.edit')->with(compact('user', 'roles', 'rol_user', 'id'));
     }
 
 
@@ -99,7 +91,6 @@ class UserController extends Controller
         $user->last = $request->input('last');
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
-        $user->colegio_id = $request->input('colegio_id');
         $user->save();
 
         $user->roles()->sync($request->get('roles'));        
@@ -209,5 +200,19 @@ class UserController extends Controller
         $data->save();
 
         return redirect ('admin/usuarios')->with('success', 'Registro inactivado exitosamente');
+    }
+
+/*-- ----------------------------
+-- Cambio de contraseña
+-- ----------------------------*/
+    public function pwd(Request $request)
+    {
+
+        $user = User::find($request->input('user_id'));
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+
+
+        return redirect ('admin/usuarios')->with('success', 'Contraseña actualizada exitosamente');
     }
 }

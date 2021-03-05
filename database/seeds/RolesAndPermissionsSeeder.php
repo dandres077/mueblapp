@@ -38,6 +38,7 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'usuarios.inactive']);
 		Permission::create(['name' => 'usuarios.editarperfil']); 
 		Permission::create(['name' => 'usuarios.updateperfil']); 
+		Permission::create(['name' => 'usuarios.pwd']); 
 		Permission::create(['name' => 'paises.store']);
 		Permission::create(['name' => 'paises.index']);
 		Permission::create(['name' => 'paises.create']);
@@ -69,7 +70,6 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'catalogos.index']); 
 		Permission::create(['name' => 'catalogos.create']); 
 		Permission::create(['name' => 'catalogos.update']); 
-		Permission::create(['name' => 'catalogos.show']); 
 		Permission::create(['name' => 'catalogos.destroy']); 
 		Permission::create(['name' => 'catalogos.edit']); 
 		Permission::create(['name' => 'catalogos.active']); 
