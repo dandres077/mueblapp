@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 use DB;
 
@@ -110,7 +111,5 @@ class RoleController extends Controller
 
         return view ('roles.show')->with(compact('roles', 'permisos', 'rol_permisos'));
     }
-
-
 
 }

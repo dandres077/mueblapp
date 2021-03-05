@@ -70,36 +70,19 @@
                     <th>Id</th>
                     <th>Nombre</th>                   
                     <th></th>
-                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach ($roles as $roles)
                 <tr class="gradeX">
                     <td>{{$roles->id}}</td>
-                    <td>{{$roles->name}}</td>
-                    <td>               
-                    @can('roles.active')              
-                    @if ($roles->status==1)
-                        <form method="post" action="{{ url('admin/roles/'.$roles->id.'/inactive')}}">
-                            {{ csrf_field() }}
-                            <button type="submit" rel="tooltip" title="Cambiar" class="btn btn-warning btn-elevate btn-pill btn-elevate-air btn-sm"> Inactivar <i class="fa fa-repeat"></i></button>
-                        </form>
-
-                    @else
-                        <form method="post" action="{{ url('admin/roles/'.$roles->id.'/active')}}">
-                            {{ csrf_field() }}
-                            <button type="submit" rel="tooltip" title="Cambiar" class="btn btn-success btn-elevate btn-pill btn-elevate-air btn-sm"> Activar <i class="fa fa-repeat"></i></button>
-                        </form>
-                    @endif   
-                    @endcan                     
-                    </td>
+                    <td>{{$roles->name}}</td>           
                     <td>
-
+                    @can('roles.edit')
                         <a href="{{ url('admin/roles/'.$roles->id.'/edit')}}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
                           <i class="la la-edit"></i>
-                        </a>
-        
+                        </a>        
+                    @endcan
                     </td>
                 </tr>
                 @endforeach 
@@ -108,7 +91,6 @@
                 <tr>
                     <th>Id</th>
                     <th>Nombre</th>                   
-                    <th></th>
                     <th></th>
                 </tr>
                 </tfoot>

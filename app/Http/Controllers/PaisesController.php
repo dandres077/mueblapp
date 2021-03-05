@@ -4,82 +4,157 @@ namespace App\Http\Controllers;
 
 use App\Paises;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\PaisesRequest;
+use DB;
 
 class PaisesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+/*
+}
+|--------------------------------------------------------------------------
+| index
+|--------------------------------------------------------------------------
+|
+*/
+
     public function index()
     {
-        //
+        $data = DB::table('paises')
+                    ->select('paises.*')
+                    ->where('status', '<>', 3 )
+                    ->orderByRaw('id ASC')
+                    ->get();
+
+        $titulo = 'Paises';
+        
+
+        return view('paises.index', compact('data', 'titulo'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+/*
+|--------------------------------------------------------------------------
+| create
+|--------------------------------------------------------------------------
+|
+*/
+
     public function create()
     {
-        //
+        $titulo = 'Paises';
+
+        return view('paises.create', compact('titulo'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+/*
+|--------------------------------------------------------------------------
+| store
+|--------------------------------------------------------------------------
+|
+*/
+    public function store(PaisesRequest $request)
     {
-        //
+
+        $request['user_create'] = Auth::id();
+        $data = Paises::create($request->all());
+
+        return redirect ('admin/paises')->with('success', 'Registro creado exitosamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Paises  $paises
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Paises $paises)
+
+/*
+|--------------------------------------------------------------------------
+| edit
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function edit($id)
     {
-        //
+
+        $data = Paises::find($id); 
+        $titulo = 'Paises';
+
+        return view ('paises.edit')->with (compact('data', 'titulo'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Paises  $paises
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Paises $paises)
+
+
+/*
+|--------------------------------------------------------------------------
+| update
+|--------------------------------------------------------------------------
+|
+*/
+    public function update(PaisesRequest $request, $id)
     {
-        //
+
+        $data = Paises::find($id);
+        $data->nombre = $request->input('nombre');
+        $data->user_update = Auth::id();
+        $data->save();
+
+        
+        return redirect ('admin/paises')->with('success', 'Registro actualizado exitosamente');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Paises  $paises
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Paises $paises)
+
+
+/*
+|--------------------------------------------------------------------------
+| destroy
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function destroy($id)
     {
-        //
+        $data = Paises::find($id);
+        $data->status = 3;
+        $data->user_update = Auth::id();
+        $data->save();
+  
+        return redirect ('admin/paises');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Paises  $paises
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Paises $paises)
+
+/*
+|--------------------------------------------------------------------------
+| Activar publicación
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function active($id)
     {
-        //
+
+        $data = Paises::find($id);
+        $data->status = 1;
+        $data->user_update = Auth::id();
+        $data->save();
+  
+        return redirect ('admin/paises');
+    }
+
+
+/*
+|--------------------------------------------------------------------------
+| Desactivar publicación
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function inactive($id)
+    {
+        $data = Paises::find($id);
+        $data->status = 2;
+        $data->user_update = Auth::id();
+        $data->save();
+
+        return redirect ('admin/paises');
     }
 }
+
+

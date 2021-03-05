@@ -31,7 +31,6 @@ Route::middleware(['auth'])->group(function(){
 	Route::delete('admin/roles/{id}', 'RoleController@destroy');
 	Route::get('admin/roles/{id}/edit', 'RoleController@edit');
 
-
 /*
 |--------------------------------------------------------------------------
 | Permisos
@@ -73,15 +72,15 @@ Route::middleware(['auth'])->group(function(){
 |--------------------------------------------------------------------------
 |
 */
-	Route::post('admin/departamentos/store', 'DepartamentosController@store');
-	Route::get('admin/departamentos', 'DepartamentosController@index');
-	Route::get('admin/departamentos/create', 'DepartamentosController@create');
-	Route::post('admin/departamentos/{id}/edit', 'DepartamentosController@update');
-	Route::get('admin/departamentos/{id}', 'DepartamentosController@show');
-	Route::delete('admin/departamentos/{id}', 'DepartamentosController@destroy');
-	Route::get('admin/departamentos/{id}/edit', 'DepartamentosController@edit');
-	Route::post('admin/departamentos/{id}/active', 'DepartamentosController@active');
-	Route::post('admin/departamentos/{id}/inactive', 'DepartamentosController@inactive');
+	Route::post('admin/departamentos/store', 'DepartamentosController@store')->middleware('permiso:departamentos.store'); 
+	Route::get('admin/departamentos', 'DepartamentosController@index')->middleware('permiso:departamentos.index'); 
+	Route::get('admin/departamentos/create', 'DepartamentosController@create')->middleware('permiso:departamentos.create'); 
+	Route::post('admin/departamentos/{id}/edit', 'DepartamentosController@update')->middleware('permiso:departamentos.update'); 
+	Route::get('admin/departamentos/{id}', 'DepartamentosController@show')->middleware('permiso:departamentos.show'); 
+	Route::delete('admin/departamentos/{id}', 'DepartamentosController@destroy')->middleware('permiso:departamentos.destroy'); 
+	Route::get('admin/departamentos/{id}/edit', 'DepartamentosController@edit')->middleware('permiso:departamentos.edit'); 
+	Route::post('admin/departamentos/{id}/active', 'DepartamentosController@active')->middleware('permiso:departamentos.active'); 
+	Route::post('admin/departamentos/{id}/inactive', 'DepartamentosController@inactive')->middleware('permiso:departamentos.inactive'); 
 
 
 /*
@@ -90,15 +89,15 @@ Route::middleware(['auth'])->group(function(){
 |--------------------------------------------------------------------------
 |
 */
-	Route::post('admin/ciudades/store', 'CiudadesController@store');
-	Route::get('admin/ciudades', 'CiudadesController@index');
-	Route::get('admin/ciudades/create', 'CiudadesController@create');
-	Route::post('admin/ciudades/{id}/edit', 'CiudadesController@update');
-	Route::get('admin/ciudades/{id}', 'CiudadesController@show');
-	Route::delete('admin/ciudades/{id}', 'CiudadesController@destroy');
-	Route::get('admin/ciudades/{id}/edit', 'CiudadesController@edit');
-	Route::post('admin/ciudades/{id}/active', 'CiudadesController@active');
-	Route::post('admin/ciudades/{id}/inactive', 'CiudadesController@inactive');
+	Route::post('admin/ciudades/store', 'CiudadesController@store')->middleware('permiso:ciudades.store'); 
+	Route::get('admin/ciudades', 'CiudadesController@index')->middleware('permiso:ciudades.index'); 
+	Route::get('admin/ciudades/create', 'CiudadesController@create')->middleware('permiso:ciudades.create'); 
+	Route::post('admin/ciudades/{id}/edit', 'CiudadesController@update')->middleware('permiso:ciudades.update'); 
+	Route::get('admin/ciudades/{id}', 'CiudadesController@show')->middleware('permiso:ciudades.show'); 
+	Route::delete('admin/ciudades/{id}', 'CiudadesController@destroy')->middleware('permiso:ciudades.destroy'); 
+	Route::get('admin/ciudades/{id}/edit', 'CiudadesController@edit')->middleware('permiso:ciudades.edit'); 
+	Route::post('admin/ciudades/{id}/active', 'CiudadesController@active')->middleware('permiso:ciudades.active'); 
+	Route::post('admin/ciudades/{id}/inactive', 'CiudadesController@inactive')->middleware('permiso:ciudades.inactive'); 
 
 
 /*
@@ -108,9 +107,13 @@ Route::middleware(['auth'])->group(function(){
 |
 */
 
-Route::get('admin/paises', function () {
-    return view('paises.index');
-});
+	Route::post('admin/paises/store', 'PaisesController@store')->middleware('permiso:paises.store'); 
+	Route::get('admin/paises', 'PaisesController@index')->middleware('permiso:paises.index'); 
+	Route::get('admin/paises/create', 'PaisesController@create')->middleware('permiso:paises.create'); 
+	Route::post('admin/paises/{id}/edit', 'PaisesController@update')->middleware('permiso:paises.update'); 
+	Route::get('admin/paises/{id}/edit', 'PaisesController@edit')->middleware('permiso:paises.edit'); 
+	Route::post('admin/paises/{id}/active', 'PaisesController@active')->middleware('permiso:paises.active'); 
+	Route::post('admin/paises/{id}/inactive', 'PaisesController@inactive')->middleware('permiso:paises.inactive'); 
 
 
 

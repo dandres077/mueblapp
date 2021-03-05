@@ -59,7 +59,7 @@ class DepartamentosController extends Controller
 |--------------------------------------------------------------------------
 |
 */
-    public function store(DepartamentosRequest $request)
+    public function store(Request $request)
     {
 
         $request['user_create'] = Auth::id();
@@ -94,7 +94,7 @@ class DepartamentosController extends Controller
 |--------------------------------------------------------------------------
 |
 */
-    public function update(DepartamentosRequest $request, $id)
+    public function update(Request $request, $id)
     {
 
         $data = Departamentos::find($id);
