@@ -7,11 +7,14 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UsuariosRequest;
 use App\Http\Requests\UsuariosUpdateRequest;
+use App\Traits\Funciones;
 use App\User;
 use DB;
 
 class UserController extends Controller
 {
+    use Funciones; //Viene de Traits
+    //Se usa asi $fecha_recurso = $this->hora_bloques($valida_inicio,1); 
 
 /*-- ----------------------------
 -- Index
@@ -56,6 +59,7 @@ class UserController extends Controller
         $user->last = $request->input('last');
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
+        $user->imagen = 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png';
     	$user->save();
 
         $user->roles()->sync($request->get('roles'));        
@@ -119,8 +123,7 @@ class UserController extends Controller
      public function show() 
     {
         $users = DB::table('users')
-            ->select(
-                'users.*')
+            ->select('users.*')
             ->where('users.id', Auth::id())
             ->get();
 

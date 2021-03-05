@@ -66,7 +66,7 @@
         <!--Begin:: App Content-->
         <div class="kt-grid__item kt-grid__item--fluid kt-app__content">
             <div class="row">
-                <div class="col-xl-6">
+                <div class="col-sm-6">
                     <!--begin:: Widgets/Last Updates-->
                     <div class="kt-portlet kt-portlet--height-fluid-">
                 <div class="kt-portlet__head  kt-portlet__head--noborder">

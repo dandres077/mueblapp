@@ -50,14 +50,14 @@
 
                 <!--begin: Navigation -->
                 <div class="kt-notification">
-                    @can ('users.editarperfil')
+                    @can ('usuarios.editarperfil')
                     <a href="{{ url('admin/perfil')}}" class="kt-notification__item">
                         <div class="kt-notification__item-icon">
                             <i class="flaticon2-calendar-3 kt-font-success"></i>
                         </div>
                         <div class="kt-notification__item-details">
                             <div class="kt-notification__item-title kt-font-bold">
-                                Perfil
+                                Perfil - {{ $usuarios[0]->name }}
                             </div>
                         </div>
                     </a>

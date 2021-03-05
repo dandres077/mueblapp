@@ -18,9 +18,10 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('last')->nullable();
             $table->string('email')->unique();
-            $table->integer('empresa_id');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->integer('empresa_id')->nullable();
+            $table->text('imagen')->nullable();
             $table->rememberToken();
             $table->integer('status')->default(1); // 1: activo, 2:inactivo: 3: eliminado
             $table->integer('user_create')->nullable();
