@@ -14,27 +14,24 @@ class CreateProductosTable extends Migration
     public function up()
     {
         Schema::create('productos', function (Blueprint $table) {
-            $table->id('id'); // Obligatorio
-
-            $table->unsignedBigInteger('empresa_id')->index()->nullable(); // Si es foranea se ingresa el código inferior
-        
-            $table->string('nombre')->nullable(); // Opcional
-            $table->string('ean')->nullable(); // Opcional
-            $table->string('ean13')->nullable(); // Opcional
-            $table->decimal('peso', 2, 1)->nullable(); // Opcional
-            $table->decimal('largo', 2, 1)->nullable(); // Opcional
-            $table->decimal('ancho', 2, 1)->nullable(); // Opcional
-            $table->decimal('alto', 2, 1)->nullable(); // Opcional
-            $table->decimal('costoestadistico', 2, 1)->nullable(); // Opcional
-            $table->string('sku')->nullable(); // Opcional
-            $table->unsignedBigInteger('categoria_id')->index()->nullable(); // Si es foranea se ingresa el código inferior
-            $table->unsignedBigInteger('subcategoria_id')->index()->nullable(); // Si es foranea se ingresa el código inferior
-            $table->unsignedBigInteger('tipo_producto')->index()->nullable(); // Si es foranea se ingresa el código inferior
-        
-            $table->integer('status')->default(1); //Obligatorio
-            $table->integer('user_create')->nullable(); //Obligatorio
-            $table->integer('user_update')->nullable(); //Obligatorio
-            $table->timestamps(); //Obligatorio
+            $table->id('id'); 
+            $table->unsignedBigInteger('empresa_id')->index()->nullable();         
+            $table->string('nombre')->nullable(); 
+            $table->string('ean')->nullable(); 
+            $table->string('ean13')->nullable(); 
+            $table->decimal('peso', 2, 1)->nullable(); 
+            $table->decimal('largo', 2, 1)->nullable(); 
+            $table->decimal('ancho', 2, 1)->nullable(); 
+            $table->decimal('alto', 2, 1)->nullable(); 
+            $table->decimal('costoestadistico', 2, 1)->nullable(); 
+            $table->string('sku')->nullable(); 
+            $table->unsignedBigInteger('categoria_id')->index()->nullable(); 
+            $table->unsignedBigInteger('subcategoria_id')->index()->nullable(); 
+            $table->unsignedBigInteger('tipo_producto')->index()->nullable();         
+            $table->integer('status')->default(120); 
+            $table->integer('user_create')->nullable(); 
+            $table->integer('user_update')->nullable(); 
+            $table->timestamps(); 
         
             $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade')->onUpdate('cascade');

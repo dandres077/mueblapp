@@ -252,13 +252,29 @@ Route::middleware(['auth'])->group(function(){
 |
 */
 
-Route::post('admin/terceros/store', 'TercerosController@store')->middleware('permiso:terceros.store'); 
-Route::get('admin/terceros', 'TercerosController@index')->middleware('permiso:terceros.index'); 
-Route::get('admin/terceros/create', 'TercerosController@create')->middleware('permiso:terceros.create'); 
-Route::post('admin/terceros/{id}/edit', 'TercerosController@update')->middleware('permiso:terceros.update'); 
-Route::get('admin/terceros/{id}/edit', 'TercerosController@edit')->middleware('permiso:terceros.edit'); 
-Route::post('admin/terceros/{id}/active', 'TercerosController@active')->middleware('permiso:terceros.active'); 
-Route::post('admin/terceros/{id}/inactive', 'TercerosController@inactive')->middleware('permiso:terceros.inactive'); 
-Route::get('admin/terceros/data/informacion', 'TercerosController@terceros')->name('terceros.datatable')->middleware('permiso:terceros.datatable');
+	Route::post('admin/terceros/store', 'TercerosController@store')->middleware('permiso:terceros.store'); 
+	Route::get('admin/terceros', 'TercerosController@index')->middleware('permiso:terceros.index'); 
+	Route::get('admin/terceros/create', 'TercerosController@create')->middleware('permiso:terceros.create'); 
+	Route::post('admin/terceros/{id}/edit', 'TercerosController@update')->middleware('permiso:terceros.update'); 
+	Route::get('admin/terceros/{id}/edit', 'TercerosController@edit')->middleware('permiso:terceros.edit'); 
+	Route::post('admin/terceros/{id}/active', 'TercerosController@active')->middleware('permiso:terceros.active'); 
+	Route::post('admin/terceros/{id}/inactive', 'TercerosController@inactive')->middleware('permiso:terceros.inactive'); 
+	Route::get('admin/terceros/data/informacion', 'TercerosController@terceros')->name('terceros.datatable')->middleware('permiso:terceros.datatable');
+
+/*
+|--------------------------------------------------------------------------
+| Productos
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/productos/store', 'ProductosController@store')->middleware('permiso:productos.store'); 
+	Route::get('admin/productos', 'ProductosController@index')->middleware('permiso:productos.index'); 
+	Route::get('admin/productos/create', 'ProductosController@create')->middleware('permiso:productos.create'); 
+	Route::post('admin/productos/{id}/edit', 'ProductosController@update')->middleware('permiso:productos.update'); 
+	Route::get('admin/productos/{id}/edit', 'ProductosController@edit')->middleware('permiso:productos.edit'); 
+	Route::post('admin/productos/{id}/active', 'ProductosController@active')->middleware('permiso:productos.active'); 
+	Route::post('admin/productos/{id}/inactive', 'ProductosController@inactive')->middleware('permiso:productos.inactive'); 
+	Route::get('admin/productos/data/informacion', 'ProductosController@productos')->name('productos.datatable')->middleware('permiso:productos.datatable');
 
 });

@@ -3,12 +3,12 @@
 		<i class="flaticon-more-1"></i>
 	</button>
 	<div class="dropdown-menu dropdown-menu-right">
-        @can('terceros.edit')
-		<a class="dropdown-item" href="{{ url('admin/terceros/'.$id.'/edit')}}"><i class="la la-edit"></i>Editar</a>
+        @can('productos.edit')
+		<a class="dropdown-item" href="{{ url('admin/productos/'.$id.'/edit')}}"><i class="la la-edit"></i>Editar</a>
 		@endcan
 
-		@can('terceros.destroy')
-		<form method="post" action="{{ url('admin/terceros/'.$id)}}">
+		@can('productos.destroy')
+		<form method="post" action="{{ url('admin/productos/'.$id)}}">
             @method('DELETE')
             {{ csrf_field() }}
 
@@ -16,16 +16,16 @@
         </form>  
         @endcan
 
-        @if ($status==118)
-            @can('terceros.inactive')
-            <form method="post" action="{{ url('admin/terceros/'.$id.'/inactive')}}">
+        @if ($status==120)
+            @can('productos.inactive')
+            <form method="post" action="{{ url('admin/productos/'.$id.'/inactive')}}">
                 {{ csrf_field() }}
                 <button type="submit" type="button" class="dropdown-item"><i class="la la-info-circle"></i>&nbsp;&nbsp;&nbsp;Inactivar</button>
             </form>
             @endcan
         @else
-            @can('terceros.active')
-            <form method="post" action="{{ url('admin/terceros/'.$id.'/active')}}">
+            @can('productos.active')
+            <form method="post" action="{{ url('admin/productos/'.$id.'/active')}}">
                 {{ csrf_field() }}
                 <button type="submit" type="button" class="dropdown-item"><i class="la la-info-circle"></i>&nbsp;&nbsp;&nbsp;Activar</button>
             </form>

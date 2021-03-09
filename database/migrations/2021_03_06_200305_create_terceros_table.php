@@ -34,7 +34,7 @@ class CreateTercerosTable extends Migration
             $table->string('redsocial1')->nullable(); 
             $table->string('redsocial2')->nullable(); 
             $table->string('redsocial3')->nullable();         
-            $table->integer('status')->default(119); 
+            $table->integer('status')->default(118); 
             $table->integer('user_create')->nullable(); 
             $table->integer('user_update')->nullable(); 
             $table->timestamps(); 

@@ -157,6 +157,9 @@ class CatalogosSeeder extends Seeder
         Catalogos::create(['nombre' => '31','opcion' => 'Activo']);	                // Terceros-estado
         Catalogos::create(['nombre' => '31','opcion' => 'Inactivo']);	            // Terceros-estado
 
+        Catalogos::create(['nombre' => '32','opcion' => 'Activo']);	                // Productos-estado
+        Catalogos::create(['nombre' => '32','opcion' => 'Inactivo']);	            // Productos-estado
+
         
 
     }

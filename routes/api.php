@@ -17,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/subcategorias/{empresa_id}/{categoria_id}', 'ConsumosWebController@subcategorias'); //Retorna las subcategorias a partir de una categoría

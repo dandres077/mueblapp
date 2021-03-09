@@ -124,7 +124,7 @@ class TercerosController extends Controller
     {
 
         $data = Terceros::find($id);
-        $data->status = 119;
+        $data->status = 118;
         $data->user_update = Auth::id();
         $data->save();
     
@@ -142,7 +142,7 @@ class TercerosController extends Controller
     public function inactive($id)
     {
         $data = Terceros::find($id);
-        $data->status = 120;
+        $data->status = 119;
         $data->user_update = Auth::id();
         $data->save();
 
@@ -166,7 +166,7 @@ class TercerosController extends Controller
                 ->leftJoin('ciudades', 'terceros.ciudad_id', '=', 'ciudades.id')
                 ->select(
                     'terceros.*',
-                    DB::raw('(CASE WHEN terceros.status = 119 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'),
+                    DB::raw('(CASE WHEN terceros.status = 118 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'),
                     'catalogos.opcion AS nom_tipo',
                     'c2.opcion AS nom_tercero',
                     'ciudades.nombre AS nom_ciudad',)
