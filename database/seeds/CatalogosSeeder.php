@@ -160,6 +160,9 @@ class CatalogosSeeder extends Seeder
         Catalogos::create(['nombre' => '32','opcion' => 'Activo']);	                // Productos-estado
         Catalogos::create(['nombre' => '32','opcion' => 'Inactivo']);	            // Productos-estado
 
+        Catalogos::create(['nombre' => '32','opcion' => 'Activo']);	                // Precios-estado
+        Catalogos::create(['nombre' => '32','opcion' => 'Inactivo']);	            // Precios-estado
+
         
 
     }

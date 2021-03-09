@@ -277,4 +277,21 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/productos/{id}/inactive', 'ProductosController@inactive')->middleware('permiso:productos.inactive'); 
 	Route::get('admin/productos/data/informacion', 'ProductosController@productos')->name('productos.datatable')->middleware('permiso:productos.datatable');
 
+
+/*
+|--------------------------------------------------------------------------
+| Precios
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/precios/store', 'PreciosController@store')->middleware('permiso:precios.store'); 
+	Route::get('admin/precios', 'PreciosController@index')->middleware('permiso:precios.index'); 
+	Route::get('admin/precios/create', 'PreciosController@create')->middleware('permiso:precios.create'); 
+	Route::post('admin/precios/{id}/edit', 'PreciosController@update')->middleware('permiso:precios.update'); 
+	Route::get('admin/precios/{id}/edit', 'PreciosController@edit')->middleware('permiso:precios.edit'); 
+	Route::post('admin/precios/{id}/active', 'PreciosController@active')->middleware('permiso:precios.active'); 
+	Route::post('admin/precios/{id}/inactive', 'PreciosController@inactive')->middleware('permiso:precios.inactive'); 
+	Route::get('admin/precios/data/informacion', 'PreciosController@precios')->name('precios.datatable')->middleware('permiso:precios.datatable');
+
 });
