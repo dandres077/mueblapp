@@ -51,7 +51,7 @@ class UserController extends Controller
 /*-- ----------------------------
 -- Store
 -- ----------------------------*/
-    public function store(UsuariosRequest $request) 
+    public function store(Request $request) 
     {
 
     	$user = new User();
@@ -60,6 +60,7 @@ class UserController extends Controller
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
         $user->imagen = 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png';
+        $user->empresa_id = $request->input('empresa_id');
     	$user->save();
 
         $user->roles()->sync($request->get('roles'));        
@@ -87,14 +88,14 @@ class UserController extends Controller
 /*-- ----------------------------
 -- Update
 -- ----------------------------*/
-    public function update(UsuariosUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
 
     	$user = User::find($id);
         $user->name = $request->input('name');
         $user->last = $request->input('last');
         $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('password'));
+        $user->empresa_id = $request->input('empresa_id');
         $user->save();
 
         $user->roles()->sync($request->get('roles'));        

@@ -59,11 +59,11 @@
                    {{ $titulo }}
                 </h3>
             </div>
-            @can('departamentos.create')
+            @can('subcategorias.create')
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <div class="kt-portlet__head-actions">
-                        <a href="{{ url ('admin/departamentos/create')}}" class="btn btn-brand btn-elevate btn-icon-sm">
+                        <a href="{{ url ('admin/subcategorias/create')}}" class="btn btn-brand btn-elevate btn-icon-sm">
                             <i class="la la-plus"></i>
                             Crear
                         </a>
@@ -79,65 +79,18 @@
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>País</th>
-                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Subcategoría</th>
                     <th>Estado</th>
                     <th>Opciones</th>
                 </tr>
                 </thead>
-                <tbody>
-                @foreach ($data as $departamentos)
-                <tr class="gradeX">
-                    <td>{{$departamentos->id}}</td>
-                    <td>{{$departamentos->nompais}}</td>
-                    <td>{{$departamentos->nombre}}</td>
-                    <td>{{$departamentos->estado_elemento}}</td>
-                    <td>   
-                        <div class="dropdown dropdown-inline">
-                            <button type="button" class="btn btn-brand btn-elevate-hover btn-icon btn-sm btn-icon-md btn-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="flaticon-more-1"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                
-                                <a class="dropdown-item" href="{{ url('admin/departamentos/'.$departamentos->id.'/edit')}}"><i class="la la-edit"></i>Editar</a>
-                                
 
-                                
-                                <form method="post" action="{{ url('admin/departamentos/'.$departamentos->id)}}" class="formulario-eliminar">
-                                    @method('DELETE')
-                                    {{ csrf_field() }}
-
-                                    <button type="submit" type="button" class="dropdown-item"> <i class="la la-trash"></i>&nbsp;&nbsp;&nbsp;Eliminar</button>
-                                </form>  
-                                
-
-                                @if ($departamentos->status==1)
-                                    
-                                    <form method="post" action="{{ url('admin/departamentos/'.$departamentos->id.'/inactive')}}">
-                                        {{ csrf_field() }}
-                                        <button type="submit" type="button" class="dropdown-item"><i class="la la-info-circle"></i>&nbsp;&nbsp;&nbsp;Inactivar</button>
-                                    </form>
-                                    
-                                @else
-                                    
-                                    <form method="post" action="{{ url('admin/departamentos/'.$departamentos->id.'/active')}}">
-                                        {{ csrf_field() }}
-                                        <button type="submit" type="button" class="dropdown-item"><i class="la la-info-circle"></i>&nbsp;&nbsp;&nbsp;Activar</button>
-                                    </form>
-                                    
-                                @endif
-
-                            </div>
-                        </div>        
-                    </td>
-                </tr>
-                @endforeach 
-                </tbody>
                 <tfoot>
                 <tr>
                     <th>Id</th>
-                    <th>País</th>
-                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Subcategoría</th>
                     <th>Estado</th>
                     <th>Opciones</th>
                 </tr>
@@ -160,45 +113,22 @@
 
 <script src="{{ asset('plugins/dataTables/datatables.min.js')}}"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-@if(session('eliminar')=='ok')
-<script>
-    Swal.fire(
-      '¡Eliminado!',
-      'Registro eliminado exitosamente.',
-      'success'
-    )
-</script>
-
-@endif
-
-<script>
-
-    $('.formulario-eliminar').submit(function(e){
-        e.preventDefault();
-        Swal.fire({
-          title: '¿Esta seguro?',
-          text: "¡No podra revertir esta acción!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Si, estoy seguro',
-          cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.value) {
-              this.submit();
-            }          
-        })
-    });
-    
-</script>
-
 <!-- Page-Level Scripts -->
 <script>
 $(document).ready(function(){
     $('.dataTables-example').DataTable({
+
+        "serverSide":true,
+        "ajax": "{{ route('subcategorias.datatable')}}",
+        "columns":[
+            {data: 'id'},
+            {data: 'nom_categoria'},
+            {data: 'nom_subcategoria'},
+            {data: 'estado_elemento'},
+            {data: 'btn'},
+        ],
+
+
         "order": [[ 0 ,"asc" ]], //or asc 
         pageLength: 25,
         responsive: true,

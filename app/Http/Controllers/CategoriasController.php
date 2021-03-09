@@ -55,6 +55,7 @@ class CategoriasController extends Controller
     public function store(Request $request)
     {
 
+        $request['empresa_id'] = Auth::user()->empresa_id;
         $request['user_create'] = Auth::id();
         $data = Categorias::create($request->all());
 
@@ -165,7 +166,7 @@ class CategoriasController extends Controller
         $data = DB::table('categorias')
                     ->select('categorias.*',
                             DB::raw('(CASE WHEN categorias.status = 39 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'),)
-                    //->where('status', '<>', 3 )
+                    ->where('categorias.empresa_id', Auth::user()->empresa_id )
                     ->orderByRaw('id ASC')
                     ->get();
 

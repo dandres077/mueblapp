@@ -17,7 +17,8 @@ class UsersSeeder extends Seeder
         	'last' => 'Contreras', 
         	'email' => 'da.contrerasp@uniandes.edu.co', 
         	'password' => bcrypt('123456'),
-            'imagen' => 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png'
+            'imagen' => 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png',
+            'empresa_id' => 1
         ]);
 
         User::create([
@@ -25,7 +26,8 @@ class UsersSeeder extends Seeder
             'last' => 'Gomez', 
             'email' => 'davgomez@gmail.com', 
             'password' => bcrypt('123456'),
-            'imagen' => 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png'
+            'imagen' => 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png',
+            'empresa_id' => 1
         ]);
 
     }

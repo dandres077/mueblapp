@@ -3,33 +3,33 @@
 		<i class="flaticon-more-1"></i>
 	</button>
 	<div class="dropdown-menu dropdown-menu-right">
-		
-		<a class="dropdown-item" href="{{ url('admin/silleteria/'.$id.'/edit')}}"><i class="la la-edit"></i>Editar</a>
-		
+        @can('subcategorias.edit')
+		<a class="dropdown-item" href="{{ url('admin/subcategorias/'.$id.'/edit')}}"><i class="la la-edit"></i>Editar</a>
+		@endcan
 
-		
-		<form method="post" action="{{ url('admin/silleteria/'.$id)}}">
+		@can('subcategorias.destroy')
+		<form method="post" action="{{ url('admin/subcategorias/'.$id)}}">
             @method('DELETE')
             {{ csrf_field() }}
 
             <button type="submit" type="button" class="dropdown-item"> <i class="la la-trash"></i>&nbsp;&nbsp;&nbsp;Eliminar</button>
         </form>  
-        
+        @endcan
 
-        @if ($status==1)
-        	
-            <form method="post" action="{{ url('admin/silleteria/'.$id.'/inactive')}}">
+        @if ($status==41)
+            @can('subcategorias.inactive')
+            <form method="post" action="{{ url('admin/subcategorias/'.$id.'/inactive')}}">
                 {{ csrf_field() }}
                 <button type="submit" type="button" class="dropdown-item"><i class="la la-info-circle"></i>&nbsp;&nbsp;&nbsp;Inactivar</button>
             </form>
-            
+            @endcan
         @else
-        	
-            <form method="post" action="{{ url('admin/silleteria/'.$id.'/active')}}">
+            @can('subcategorias.active')
+            <form method="post" action="{{ url('admin/subcategorias/'.$id.'/active')}}">
                 {{ csrf_field() }}
                 <button type="submit" type="button" class="dropdown-item"><i class="la la-info-circle"></i>&nbsp;&nbsp;&nbsp;Activar</button>
             </form>
-            
+            @endcan
         @endif
 
 	</div>

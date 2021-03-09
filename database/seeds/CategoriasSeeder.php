@@ -1,16 +1,26 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Categorias;
 
 class CategoriasSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     public function run()
     {
-        //
+        Categorias::create([
+        	'empresa_id' => 1, 
+        	'nombre' => 'Sala'
+        ]);
+
+        Categorias::create([
+        	'empresa_id' => 1, 
+        	'nombre' => 'Comedor'
+        ]);
+
+        Categorias::create([
+        	'empresa_id' => 1, 
+        	'nombre' => 'Estudio'
+        ]);
     }
 }

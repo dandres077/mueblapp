@@ -16,9 +16,9 @@
                 Dashboard </h3>
             <span class="kt-subheader__separator kt-hidden"></span>
             <div class="kt-subheader__breadcrumbs">
-                <a href="{{ url ('departamentos')}}" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                <a href="{{ url ('admin/subcategorias')}}" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                 <span class="kt-subheader__breadcrumbs-separator"></span>
-                <a href="{{ url ('departamentos')}}" class="kt-subheader__breadcrumbs-link">
+                <a href="{{ url ('admin/subcategorias')}}" class="kt-subheader__breadcrumbs-link">
                 {{ $titulo }}</a>
                 <span class="kt-subheader__breadcrumbs-separator"></span>
                 <a href="" class="kt-subheader__breadcrumbs-link">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div class="kt-portlet__body">
-                    <form method="post" class="form-horizontal" action="{{ url('admin/departamentos/store')}}" autocomplete="off" onsubmit="return validar(this)">
+                    <form method="post" class="form-horizontal" action="{{ url('admin/subcategorias/store')}}" autocomplete="off">
                     {{ csrf_field()}}
                         <div class="row">
                             <div class="col-xl-3"></div>
@@ -60,10 +60,10 @@
                                     <div class="kt-section__body">  
 
                                         <div class="form-group row">
-                                            <label class="col-3 col-form-label">País </label>
+                                            <label class="col-3 col-form-label">Categorías </label>
                                             <div class="col-9">
-                                                <select class="form-control" name="pais_id" id="pais_id">
-                                                @foreach ($paises as $data)
+                                                <select class="form-control" name="categoria_id" id="categoria_id">
+                                                @foreach ($categorias as $data)
                                                     <option value="{{ $data->id }}"> {{ $data->nombre }}</option>
                                                 @endforeach                                                  
                                                 </select>
@@ -79,10 +79,10 @@
 
                                         <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
                                         <div class="kt-form__actions">
-                                            @can('departamentos.store')
+                                            @can('subcategorias.store')
                                             <button type="submit" class="btn btn-primary" name="enviar">Crear</button>
                                             @endcan
-                                            <a href="{{ url ('admin/departamentos')}}" class="btn btn-secondary">Cancelar</a>
+                                            <a href="{{ url ('admin/subcategorias')}}" class="btn btn-secondary">Cancelar</a>
                                         </div>
                                     </div>
                                 </div>
