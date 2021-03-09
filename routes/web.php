@@ -181,5 +181,21 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/subcategorias/{id}/inactive', 'SubcategoriasController@inactive')->middleware('permiso:subcategorias.inactive'); 
 	Route::get('admin/subcategorias/data/informacion', 'SubcategoriasController@subcategorias')->name('subcategorias.datatable')->middleware('permiso:subcategorias.datatable');
 
+/*
+|--------------------------------------------------------------------------
+| Almacenes
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/almacenes/store', 'AlmacenesController@store')->middleware('permiso:almacenes.store'); 
+	Route::get('admin/almacenes', 'AlmacenesController@index')->middleware('permiso:almacenes.index'); 
+	Route::get('admin/almacenes/create', 'AlmacenesController@create')->middleware('permiso:almacenes.create'); 
+	Route::post('admin/almacenes/{id}/edit', 'AlmacenesController@update')->middleware('permiso:almacenes.update'); 
+	Route::get('admin/almacenes/{id}/edit', 'AlmacenesController@edit')->middleware('permiso:almacenes.edit'); 
+	Route::post('admin/almacenes/{id}/active', 'AlmacenesController@active')->middleware('permiso:almacenes.active'); 
+	Route::post('admin/almacenes/{id}/inactive', 'AlmacenesController@inactive')->middleware('permiso:almacenes.inactive'); 
+	Route::get('admin/almacenes/data/informacion', 'AlmacenesController@almacenes')->name('almacenes.datatable')->middleware('permiso:almacenes.datatable');
+
 
 });
