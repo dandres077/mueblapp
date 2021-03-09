@@ -4,82 +4,170 @@ namespace App\Http\Controllers;
 
 use App\Vendedores;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use DB;
 
 class VendedoresController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+/*
+|--------------------------------------------------------------------------
+| index
+|--------------------------------------------------------------------------
+|
+*/
+
     public function index()
     {
-        //
+        $titulo = 'Vendedores';            
+
+        return view('vendedores.index', compact('titulo'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+/*
+|--------------------------------------------------------------------------
+| create
+|--------------------------------------------------------------------------
+|
+*/
+
     public function create()
     {
-        //
+        $titulo = 'Vendedores';
+
+        return view('vendedores.create', compact('titulo'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+/*
+|--------------------------------------------------------------------------
+| store
+|--------------------------------------------------------------------------
+|
+*/
     public function store(Request $request)
     {
-        //
+
+        $request['empresa_id'] = Auth::user()->empresa_id;
+        $request['user_create'] = Auth::id();
+        $data = Vendedores::create($request->all());
+
+        return redirect ('admin/vendedores')->with('success', 'Registro creado exitosamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Vendedores  $vendedores
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Vendedores $vendedores)
+
+/*
+|--------------------------------------------------------------------------
+| edit
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function edit($id)
     {
-        //
+
+        $data = Vendedores::find($id); 
+        $titulo = 'Vendedores';
+
+        return view ('vendedores.edit')->with (compact('data', 'titulo'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Vendedores  $vendedores
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Vendedores $vendedores)
-    {
-        //
+
+
+/*
+|--------------------------------------------------------------------------
+| update
+|--------------------------------------------------------------------------
+|
+*/
+    public function update(Request $request, $id)
+    { 
+
+        $request['user_update'] = Auth::id();
+        $datos = Vendedores::find($id)->update($request->all());    
+        
+        return redirect ('admin/vendedores')->with('success', 'Registro actualizado exitosamente');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Vendedores  $vendedores
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Vendedores $vendedores)
+
+
+/*
+|--------------------------------------------------------------------------
+| destroy
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function destroy($id)
     {
-        //
+        $data = Vendedores::find($id);
+        $data->status = 3;
+        $data->user_update = Auth::id();
+        $data->save();
+    
+        return redirect ('admin/vendedores');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Vendedores  $vendedores
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Vendedores $vendedores)
+
+/*
+|--------------------------------------------------------------------------
+| Activar publicación
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function active($id)
     {
-        //
+
+        $data = Vendedores::find($id);
+        $data->status = 114;
+        $data->user_update = Auth::id();
+        $data->save();
+    
+        return redirect ('admin/vendedores');
+    }
+    
+    
+/*
+|--------------------------------------------------------------------------
+| Desactivar publicación
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function inactive($id)
+    {
+        $data = Vendedores::find($id);
+        $data->status = 115;
+        $data->user_update = Auth::id();
+        $data->save();
+
+        return redirect ('admin/vendedores');
+    }
+
+/*
+}
+|--------------------------------------------------------------------------
+| Datatable
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function vendedores()
+    {
+
+        $data = DB::table('vendedores')
+                    ->select('vendedores.*',
+                            DB::raw('(CASE WHEN status = 116 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'),)
+                    ->where('empresa_id', Auth::user()->empresa_id )
+                    ->orderByRaw('id ASC')
+                    ->get();
+
+        return datatables()
+            ->of($data)
+            ->addColumn('btn', 'vendedores.actions')
+            ->rawColumns(['btn'])
+            ->toJson();
+
     }
 }

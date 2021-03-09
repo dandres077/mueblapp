@@ -213,5 +213,21 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/tiendas/{id}/inactive', 'TiendasController@inactive')->middleware('permiso:tiendas.inactive'); 
 	Route::get('admin/tiendas/data/informacion', 'TiendasController@tiendas')->name('tiendas.datatable')->middleware('permiso:tiendas.datatable');
 
+/*
+|--------------------------------------------------------------------------
+| Vendedores
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/vendedores/store', 'VendedoresController@store')->middleware('permiso:vendedores.store'); 
+	Route::get('admin/vendedores', 'VendedoresController@index')->middleware('permiso:vendedores.index'); 
+	Route::get('admin/vendedores/create', 'VendedoresController@create')->middleware('permiso:vendedores.create'); 
+	Route::post('admin/vendedores/{id}/edit', 'VendedoresController@update')->middleware('permiso:vendedores.update'); 
+	Route::get('admin/vendedores/{id}/edit', 'VendedoresController@edit')->middleware('permiso:vendedores.edit'); 
+	Route::post('admin/vendedores/{id}/active', 'VendedoresController@active')->middleware('permiso:vendedores.active'); 
+	Route::post('admin/vendedores/{id}/inactive', 'VendedoresController@inactive')->middleware('permiso:vendedores.inactive'); 
+	Route::get('admin/vendedores/data/informacion', 'VendedoresController@vendedores')->name('vendedores.datatable')->middleware('permiso:vendedores.datatable');
+
 
 });
