@@ -148,6 +148,9 @@ class CatalogosSeeder extends Seeder
         Catalogos::create(['nombre' => '28','opcion' => '1-Ent']);	                //	Movimientos_det-tipo_mov
         Catalogos::create(['nombre' => '28','opcion' => '0-Sal']);	                //	Movimientos_det-tipo_mov
 
+        Catalogos::create(['nombre' => '29','opcion' => 'Activo']);	                // Tiendas-estado
+        Catalogos::create(['nombre' => '29','opcion' => 'Inactivo']);	            // Tiendas-estado
+
         
 
     }

@@ -14,20 +14,17 @@ class CreateTiendasTable extends Migration
     public function up()
     {
         Schema::create('tiendas', function (Blueprint $table) {
-            $table->id('id'); // Obligatorio
-
-            $table->unsignedBigInteger('empresa_id')->index()->nullable(); // Si es foranea se ingresa el código inferior
-        
-            $table->string('nombre')->nullable(); // Opcional
-            $table->string('direccion')->nullable(); // Opcional
-            $table->string('telefono')->nullable(); // Opcional
-            $table->string('responsable')->nullable(); // Opcional
-            $table->string('horario')->nullable(); // Opcional
-        
-            $table->integer('status')->default(1); //Obligatorio
-            $table->integer('user_create')->nullable(); //Obligatorio
-            $table->integer('user_update')->nullable(); //Obligatorio
-            $table->timestamps(); //Obligatorio
+            $table->id('id');
+            $table->unsignedBigInteger('empresa_id')->index()->nullable();        
+            $table->string('nombre')->nullable();
+            $table->string('direccion')->nullable();
+            $table->string('telefono')->nullable();
+            $table->string('responsable')->nullable();
+            $table->string('horario')->nullable();        
+            $table->integer('status')->default(114);
+            $table->integer('user_create')->nullable();
+            $table->integer('user_update')->nullable();
+            $table->timestamps(); 
         
             $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade')->onUpdate('cascade');
         });

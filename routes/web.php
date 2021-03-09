@@ -197,5 +197,21 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/almacenes/{id}/inactive', 'AlmacenesController@inactive')->middleware('permiso:almacenes.inactive'); 
 	Route::get('admin/almacenes/data/informacion', 'AlmacenesController@almacenes')->name('almacenes.datatable')->middleware('permiso:almacenes.datatable');
 
+/*
+|--------------------------------------------------------------------------
+| Tiendas
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/tiendas/store', 'TiendasController@store')->middleware('permiso:tiendas.store'); 
+	Route::get('admin/tiendas', 'TiendasController@index')->middleware('permiso:tiendas.index'); 
+	Route::get('admin/tiendas/create', 'TiendasController@create')->middleware('permiso:tiendas.create'); 
+	Route::post('admin/tiendas/{id}/edit', 'TiendasController@update')->middleware('permiso:tiendas.update'); 
+	Route::get('admin/tiendas/{id}/edit', 'TiendasController@edit')->middleware('permiso:tiendas.edit'); 
+	Route::post('admin/tiendas/{id}/active', 'TiendasController@active')->middleware('permiso:tiendas.active'); 
+	Route::post('admin/tiendas/{id}/inactive', 'TiendasController@inactive')->middleware('permiso:tiendas.inactive'); 
+	Route::get('admin/tiendas/data/informacion', 'TiendasController@tiendas')->name('tiendas.datatable')->middleware('permiso:tiendas.datatable');
+
 
 });

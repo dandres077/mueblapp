@@ -4,82 +4,171 @@ namespace App\Http\Controllers;
 
 use App\Tiendas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use DB;
 
 class TiendasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+/*
+}
+|--------------------------------------------------------------------------
+| index
+|--------------------------------------------------------------------------
+|
+*/
+
     public function index()
     {
-        //
+        $titulo = 'Tiendas';            
+
+        return view('tiendas.index', compact('titulo'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+/*
+|--------------------------------------------------------------------------
+| create
+|--------------------------------------------------------------------------
+|
+*/
+
     public function create()
     {
-        //
+        $titulo = 'Tiendas';
+
+        return view('tiendas.create', compact('titulo'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+/*
+|--------------------------------------------------------------------------
+| store
+|--------------------------------------------------------------------------
+|
+*/
     public function store(Request $request)
     {
-        //
+
+        $request['empresa_id'] = Auth::user()->empresa_id;
+        $request['user_create'] = Auth::id();
+        $data = Tiendas::create($request->all());
+
+        return redirect ('admin/tiendas')->with('success', 'Registro creado exitosamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Tiendas  $tiendas
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Tiendas $tiendas)
+
+/*
+|--------------------------------------------------------------------------
+| edit
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function edit($id)
     {
-        //
+
+        $data = Tiendas::find($id); 
+        $titulo = 'Tiendas';
+
+        return view ('tiendas.edit')->with (compact('data', 'titulo'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Tiendas  $tiendas
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tiendas $tiendas)
-    {
-        //
+
+
+/*
+|--------------------------------------------------------------------------
+| update
+|--------------------------------------------------------------------------
+|
+*/
+    public function update(Request $request, $id)
+    { 
+
+        $request['user_update'] = Auth::id();
+        $datos = Tiendas::find($id)->update($request->all());    
+        
+        return redirect ('admin/tiendas')->with('success', 'Registro actualizado exitosamente');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tiendas  $tiendas
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Tiendas $tiendas)
+
+
+/*
+|--------------------------------------------------------------------------
+| destroy
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function destroy($id)
     {
-        //
+        $data = Tiendas::find($id);
+        $data->status = 3;
+        $data->user_update = Auth::id();
+        $data->save();
+    
+        return redirect ('admin/tiendas');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Tiendas  $tiendas
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Tiendas $tiendas)
+
+/*
+|--------------------------------------------------------------------------
+| Activar publicación
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function active($id)
     {
-        //
+
+        $data = Tiendas::find($id);
+        $data->status = 114;
+        $data->user_update = Auth::id();
+        $data->save();
+    
+        return redirect ('admin/tiendas');
+    }
+    
+    
+/*
+|--------------------------------------------------------------------------
+| Desactivar publicación
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function inactive($id)
+    {
+        $data = Tiendas::find($id);
+        $data->status = 115;
+        $data->user_update = Auth::id();
+        $data->save();
+
+        return redirect ('admin/tiendas');
+    }
+
+/*
+}
+|--------------------------------------------------------------------------
+| Datatable
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function tiendas()
+    {
+
+        $data = DB::table('tiendas')
+                    ->select('tiendas.*',
+                            DB::raw('(CASE WHEN status = 114 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'),)
+                    ->where('empresa_id', Auth::user()->empresa_id )
+                    ->orderByRaw('id ASC')
+                    ->get();
+
+        return datatables()
+            ->of($data)
+            ->addColumn('btn', 'tiendas.actions')
+            ->rawColumns(['btn'])
+            ->toJson();
+
     }
 }
