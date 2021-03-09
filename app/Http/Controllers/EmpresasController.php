@@ -192,28 +192,28 @@ class EmpresasController extends Controller
 |
 */
 
-public function empresas()
-{
+    public function empresas()
+    {
 
-    $data = DB::table('empresas')
-            ->leftJoin('catalogos', 'empresas.tipo_id', '=', 'catalogos.id')
-            ->leftJoin('catalogos AS c2', 'empresas.sector_id', '=', 'c2.id')
-            ->leftJoin('ciudades', 'empresas.ciudad_id', '=', 'ciudades.id')
-            ->select(
-                'empresas.*',
-                DB::raw('(CASE WHEN empresas.status = 1 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'),
-                'catalogos.opcion AS nom_tipo',
-                'c2.opcion AS nom_sector',
-                'ciudades.nombre AS nom_ciudad',)
-            ->where('empresas.status', '<>', 3 )
-            ->orderByRaw('empresas.id ASC')
-            ->get();
+        $data = DB::table('empresas')
+                ->leftJoin('catalogos', 'empresas.tipo_id', '=', 'catalogos.id')
+                ->leftJoin('catalogos AS c2', 'empresas.sector_id', '=', 'c2.id')
+                ->leftJoin('ciudades', 'empresas.ciudad_id', '=', 'ciudades.id')
+                ->select(
+                    'empresas.*',
+                    DB::raw('(CASE WHEN empresas.status = 1 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'),
+                    'catalogos.opcion AS nom_tipo',
+                    'c2.opcion AS nom_sector',
+                    'ciudades.nombre AS nom_ciudad',)
+                ->where('empresas.status', '<>', 3 )
+                ->orderByRaw('empresas.id ASC')
+                ->get();
 
-    return datatables()
-        ->of($data)
-        ->addColumn('btn', 'empresas.actions')
-        ->rawColumns(['btn'])
-        ->toJson();
-   
-}
+        return datatables()
+            ->of($data)
+            ->addColumn('btn', 'empresas.actions')
+            ->rawColumns(['btn'])
+            ->toJson();
+    
+    }
 }

@@ -148,6 +148,38 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/empresas/{id}/inactive', 'EmpresasController@inactive')->middleware('permiso:empresas.inactive'); 
 	Route::get('admin/empresas/data/informacion', 'EmpresasController@empresas')->name('empresas.datatable')->middleware('permiso:empresas.datatable');
 
+/*
+|--------------------------------------------------------------------------
+| Categorías productos
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/categorias/store', 'CategoriasController@store')->middleware('permiso:categorias.store'); 
+	Route::get('admin/categorias', 'CategoriasController@index')->middleware('permiso:categorias.index'); 
+	Route::get('admin/categorias/create', 'CategoriasController@create')->middleware('permiso:categorias.create'); 
+	Route::post('admin/categorias/{id}/edit', 'CategoriasController@update')->middleware('permiso:categorias.update'); 
+	Route::get('admin/categorias/{id}/edit', 'CategoriasController@edit')->middleware('permiso:categorias.edit'); 
+	Route::post('admin/categorias/{id}/active', 'CategoriasController@active')->middleware('permiso:categorias.active'); 
+	Route::post('admin/categorias/{id}/inactive', 'CategoriasController@inactive')->middleware('permiso:categorias.inactive'); 
+	Route::get('admin/categorias/data/informacion', 'CategoriasController@categorias')->name('categorias.datatable')->middleware('permiso:categorias.datatable');
+
+
+/*
+|--------------------------------------------------------------------------
+| Subcategorías productos
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/subcategorias/store', 'SubcategoriasController@store')->middleware('permiso:subcategorias.store'); 
+	Route::get('admin/subcategorias', 'SubcategoriasController@index')->middleware('permiso:subcategorias.index'); 
+	Route::get('admin/subcategorias/create', 'SubcategoriasController@create')->middleware('permiso:subcategorias.create'); 
+	Route::post('admin/subcategorias/{id}/edit', 'SubcategoriasController@update')->middleware('permiso:subcategorias.update'); 
+	Route::get('admin/subcategorias/{id}/edit', 'SubcategoriasController@edit')->middleware('permiso:subcategorias.edit'); 
+	Route::post('admin/subcategorias/{id}/active', 'SubcategoriasController@active')->middleware('permiso:subcategorias.active'); 
+	Route::post('admin/subcategorias/{id}/inactive', 'SubcategoriasController@inactive')->middleware('permiso:subcategorias.inactive'); 
+	Route::get('admin/subcategorias/data/informacion', 'SubcategoriasController@subcategorias')->name('subcategorias.datatable')->middleware('permiso:subcategorias.datatable');
 
 
 });
