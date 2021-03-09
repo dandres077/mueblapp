@@ -229,5 +229,20 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/vendedores/{id}/inactive', 'VendedoresController@inactive')->middleware('permiso:vendedores.inactive'); 
 	Route::get('admin/vendedores/data/informacion', 'VendedoresController@vendedores')->name('vendedores.datatable')->middleware('permiso:vendedores.datatable');
 
+/*
+|--------------------------------------------------------------------------
+| Campanas
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/campanas/store', 'CampanasController@store')->middleware('permiso:campanas.store'); 
+	Route::get('admin/campanas', 'CampanasController@index')->middleware('permiso:campanas.index'); 
+	Route::get('admin/campanas/create', 'CampanasController@create')->middleware('permiso:campanas.create'); 
+	Route::post('admin/campanas/{id}/edit', 'CampanasController@update')->middleware('permiso:campanas.update'); 
+	Route::get('admin/campanas/{id}/edit', 'CampanasController@edit')->middleware('permiso:campanas.edit'); 
+	Route::post('admin/campanas/{id}/active', 'CampanasController@active')->middleware('permiso:campanas.active'); 
+	Route::post('admin/campanas/{id}/inactive', 'CampanasController@inactive')->middleware('permiso:campanas.inactive'); 
+	Route::get('admin/campanas/data/informacion', 'CampanasController@campanas')->name('campanas.datatable')->middleware('permiso:campanas.datatable');
 
 });

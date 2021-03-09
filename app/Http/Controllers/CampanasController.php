@@ -4,82 +4,170 @@ namespace App\Http\Controllers;
 
 use App\Campanas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use DB;
 
 class CampanasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+/*
+|--------------------------------------------------------------------------
+| index
+|--------------------------------------------------------------------------
+|
+*/
+
     public function index()
     {
-        //
+        $titulo = 'Campañas';            
+
+        return view('campanas.index', compact('titulo'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+/*
+|--------------------------------------------------------------------------
+| create
+|--------------------------------------------------------------------------
+|
+*/
+
     public function create()
     {
-        //
+        $titulo = 'Campañas';
+
+        return view('campanas.create', compact('titulo'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+/*
+|--------------------------------------------------------------------------
+| store
+|--------------------------------------------------------------------------
+|
+*/
     public function store(Request $request)
     {
-        //
+
+        $request['empresa_id'] = Auth::user()->empresa_id;
+        $request['user_create'] = Auth::id();
+        $data = Campanas::create($request->all());
+
+        return redirect ('admin/campanas')->with('success', 'Registro creado exitosamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Campanas  $campanas
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Campanas $campanas)
+
+/*
+|--------------------------------------------------------------------------
+| edit
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function edit($id)
     {
-        //
+
+        $data = Campanas::find($id); 
+        $titulo = 'Campañas';
+
+        return view ('campanas.edit')->with (compact('data', 'titulo'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Campanas  $campanas
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Campanas $campanas)
-    {
-        //
+
+
+/*
+|--------------------------------------------------------------------------
+| update
+|--------------------------------------------------------------------------
+|
+*/
+    public function update(Request $request, $id)
+    { 
+
+        $request['user_update'] = Auth::id();
+        $datos = Campanas::find($id)->update($request->all());    
+        
+        return redirect ('admin/campanas')->with('success', 'Registro actualizado exitosamente');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Campanas  $campanas
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Campanas $campanas)
+
+
+/*
+|--------------------------------------------------------------------------
+| destroy
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function destroy($id)
     {
-        //
+        $data = Campanas::find($id);
+        $data->status = 3;
+        $data->user_update = Auth::id();
+        $data->save();
+    
+        return redirect ('admin/campanas');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Campanas  $campanas
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Campanas $campanas)
+
+/*
+|--------------------------------------------------------------------------
+| Activar publicación
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function active($id)
     {
-        //
+
+        $data = Campanas::find($id);
+        $data->status = 114;
+        $data->user_update = Auth::id();
+        $data->save();
+    
+        return redirect ('admin/campanas');
+    }
+    
+    
+/*
+|--------------------------------------------------------------------------
+| Desactivar publicación
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function inactive($id)
+    {
+        $data = Campanas::find($id);
+        $data->status = 115;
+        $data->user_update = Auth::id();
+        $data->save();
+
+        return redirect ('admin/campanas');
+    }
+
+/*
+}
+|--------------------------------------------------------------------------
+| Datatable
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function campanas()
+    {
+
+        $data = DB::table('campanas')
+                    ->select('campanas.*',
+                            DB::raw('(CASE WHEN status = 93 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'),)
+                    ->where('empresa_id', Auth::user()->empresa_id )
+                    ->orderByRaw('id ASC')
+                    ->get();
+
+        return datatables()
+            ->of($data)
+            ->addColumn('btn', 'campanas.actions')
+            ->rawColumns(['btn'])
+            ->toJson();
+
     }
 }
