@@ -131,7 +131,22 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/catalogos/{id}/active', 'CatalogosController@active')->middleware('permiso:catalogos.active'); 
 	Route::post('admin/catalogos/{id}/inactive', 'CatalogosController@inactive')->middleware('permiso:catalogos.inactive'); 
 
+/*
+|--------------------------------------------------------------------------
+| Empresas
+|--------------------------------------------------------------------------
+|
+*/
 
+	Route::post('admin/empresas/store', 'EmpresasController@store')->middleware('permiso:empresas.store'); 
+	Route::get('admin/empresas', 'EmpresasController@index')->middleware('permiso:empresas.index'); 
+	Route::get('admin/empresas/create', 'EmpresasController@create')->middleware('permiso:empresas.create'); 
+	Route::post('admin/empresas/{id}/edit', 'EmpresasController@update')->middleware('permiso:empresas.update'); 
+	Route::get('admin/empresas/{id}/edit', 'EmpresasController@edit')->middleware('permiso:empresas.edit'); 
+	Route::delete('admin/empresas/{id}', 'EmpresasController@destroy')->middleware('permiso:catalogos.destroy'); 
+	Route::post('admin/empresas/{id}/active', 'EmpresasController@active')->middleware('permiso:empresas.active'); 
+	Route::post('admin/empresas/{id}/inactive', 'EmpresasController@inactive')->middleware('permiso:empresas.inactive'); 
+	Route::get('admin/empresas/data/informacion', 'EmpresasController@empresas')->name('empresas.datatable')->middleware('permiso:empresas.datatable');
 
 
 

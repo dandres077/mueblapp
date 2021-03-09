@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Ciudades;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\CiudadesRequest;
+use Illuminate\Support\Facades\Storage;
 use DB;
 
 class CiudadesController extends Controller
@@ -65,6 +65,11 @@ class CiudadesController extends Controller
 
         $request['user_create'] = Auth::id();
         $data = Ciudades::create($request->all());
+
+        if ($request->file('imagen')) {
+            $path = Storage::disk('public')->put('images',$request->file('imagen'));
+            $data->fill(['imagen'=>asset($path)])->save();
+       }
 
         return redirect ('admin/ciudades')->with('success', 'Registro creado exitosamente');
     }
