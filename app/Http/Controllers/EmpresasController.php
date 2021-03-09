@@ -10,7 +10,7 @@ use DB;
 
 class EmpresasController extends Controller
 {
-    /*
+/*
 }
 |--------------------------------------------------------------------------
 | index

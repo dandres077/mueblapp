@@ -245,4 +245,20 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/campanas/{id}/inactive', 'CampanasController@inactive')->middleware('permiso:campanas.inactive'); 
 	Route::get('admin/campanas/data/informacion', 'CampanasController@campanas')->name('campanas.datatable')->middleware('permiso:campanas.datatable');
 
+/*
+|--------------------------------------------------------------------------
+| Terceros
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::post('admin/terceros/store', 'TercerosController@store')->middleware('permiso:terceros.store'); 
+Route::get('admin/terceros', 'TercerosController@index')->middleware('permiso:terceros.index'); 
+Route::get('admin/terceros/create', 'TercerosController@create')->middleware('permiso:terceros.create'); 
+Route::post('admin/terceros/{id}/edit', 'TercerosController@update')->middleware('permiso:terceros.update'); 
+Route::get('admin/terceros/{id}/edit', 'TercerosController@edit')->middleware('permiso:terceros.edit'); 
+Route::post('admin/terceros/{id}/active', 'TercerosController@active')->middleware('permiso:terceros.active'); 
+Route::post('admin/terceros/{id}/inactive', 'TercerosController@inactive')->middleware('permiso:terceros.inactive'); 
+Route::get('admin/terceros/data/informacion', 'TercerosController@terceros')->name('terceros.datatable')->middleware('permiso:terceros.datatable');
+
 });
