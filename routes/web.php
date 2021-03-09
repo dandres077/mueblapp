@@ -294,4 +294,6 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/precios/{id}/inactive', 'PreciosController@inactive')->middleware('permiso:precios.inactive'); 
 	Route::get('admin/precios/data/informacion', 'PreciosController@precios')->name('precios.datatable')->middleware('permiso:precios.datatable');
 
+
+
 });
