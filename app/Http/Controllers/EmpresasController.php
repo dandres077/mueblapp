@@ -50,8 +50,8 @@ class EmpresasController extends Controller
     public function create()
     {
         $ciudades = DB::table('ciudades')->select('ciudades.*')->where('status', 1 )->get();
-        $sectores = DB::table('catalogos')->select('catalogos.*')->where('nombre', 2 )->where('status', 1 )->get();
-        $tipos = DB::table('catalogos')->select('catalogos.*')->where('nombre', 3 )->where('status', 1 )->get();
+        $sectores = DB::table('catalogos')->select('catalogos.*')->where('nombre', 7 )->where('status', 1 )->get();
+        $tipos = DB::table('catalogos')->select('catalogos.*')->where('nombre', 1 )->where('status', 1 )->get();
         $titulo = 'Empresas';
 
         return view('empresas.create', compact('titulo', 'ciudades', 'sectores', 'tipos'));
@@ -86,8 +86,8 @@ class EmpresasController extends Controller
 
         $data = Empresas::find($id); 
         $ciudades = DB::table('ciudades')->select('ciudades.*')->where('status', 1 )->get();
-        $sectores = DB::table('catalogos')->select('catalogos.*')->where('nombre', 2 )->where('status', 1 )->get();
-        $tipos = DB::table('catalogos')->select('catalogos.*')->where('nombre', 3 )->where('status', 1 )->get();
+        $sectores = DB::table('catalogos')->select('catalogos.*')->where('nombre', 7 )->where('status', 1 )->get();
+        $tipos = DB::table('catalogos')->select('catalogos.*')->where('nombre', 1 )->where('status', 1 )->get();
 
         $titulo = 'Empresas';
 
