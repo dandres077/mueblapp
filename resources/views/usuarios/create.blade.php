@@ -91,6 +91,17 @@
                                         </div> 
 
                                         <div class="form-group row">
+                                            <label class="col-3 col-form-label">Empresa</label>
+                                            <div class="col-9">
+                                                <select class="form-control" name="empresa_id" id="empresa_id">
+                                                @foreach ($empresas as $empresa)
+                                                    <option value="{{ $empresa->id }}"> {{ $empresa->nombre }}</option>
+                                                @endforeach                                                  
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
                                             <label class="col-3 col-form-label">Rol</label>
                                             <div class="col-9">
                                                 @foreach ($roles as $rol)

@@ -68,6 +68,8 @@ class TiendasController extends Controller
     {
 
         $data = Tiendas::find($id); 
+        $this->authorize('view', $data); 
+
         $titulo = 'Tiendas';
 
         return view ('tiendas.edit')->with (compact('data', 'titulo'));
@@ -83,6 +85,9 @@ class TiendasController extends Controller
 */
     public function update(Request $request, $id)
     { 
+
+        $data = Tiendas::find($id);
+        $this->authorize('view', $data);  
 
         $request['user_update'] = Auth::id();
         $datos = Tiendas::find($id)->update($request->all());    
@@ -121,6 +126,7 @@ class TiendasController extends Controller
     {
 
         $data = Tiendas::find($id);
+        $this->authorize('view', $data);
         $data->status = 114;
         $data->user_update = Auth::id();
         $data->save();
@@ -139,6 +145,7 @@ class TiendasController extends Controller
     public function inactive($id)
     {
         $data = Tiendas::find($id);
+        $this->authorize('view', $data);
         $data->status = 115;
         $data->user_update = Auth::id();
         $data->save();

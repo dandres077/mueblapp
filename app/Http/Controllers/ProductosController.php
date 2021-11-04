@@ -75,6 +75,8 @@ class ProductosController extends Controller
     public function edit($id)
     {
         $data = Productos::find($id); 
+        $this->authorize('view', $data);  
+
         $tipos = DB::table('catalogos')->where('nombre', 12 )->where('status', 1 )->get();
         $categorias = DB::table('categorias')->where('empresa_id', Auth::user()->empresa_id )->where('status', 39 )->get();
         $subcategorias = DB::table('subcategorias')->where('empresa_id', Auth::user()->empresa_id )->where('status', 41 )->get();
@@ -95,6 +97,9 @@ class ProductosController extends Controller
 */
     public function update(Request $request, $id)
     {
+        $data = Productos::find($id);
+        $this->authorize('view', $data);  
+
         $request['user_update'] = Auth::id();
         $datos = Productos::find($id)->update($request->all());  
         
@@ -132,6 +137,7 @@ class ProductosController extends Controller
     {
 
         $data = Productos::find($id);
+        $this->authorize('view', $data);
         $data->status = 120;
         $data->user_update = Auth::id();
         $data->save();
@@ -150,6 +156,7 @@ class ProductosController extends Controller
     public function inactive($id)
     {
         $data = Productos::find($id);
+        $this->authorize('view', $data);
         $data->status = 121;
         $data->user_update = Auth::id();
         $data->save();

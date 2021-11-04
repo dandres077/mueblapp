@@ -85,7 +85,18 @@
                                             <div class="col-9">
                                                 <button type="button" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_modal_5">Cambiar</button>
                                             </div>
-                                        </div>                               
+                                        </div>
+                                        
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Empresa</label>
+                                            <div class="col-9">
+                                                <select class="form-control" name="empresa_id" id="empresa_id">
+                                                @foreach ($empresas as $empresa)
+                                                <option value="{{$empresa->id}}" @if($user->empresa_id==$empresa->id) selected @endif> {{ $empresa->nombre, $user->empresa_id }}</option>
+                                                @endforeach                                                  
+                                                </select>
+                                            </div>
+                                        </div>  
 
                                         <div class="form-group row">
                                             <label class="col-3 col-form-label">Rol</label>

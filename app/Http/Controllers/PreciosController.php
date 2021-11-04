@@ -67,6 +67,8 @@ class PreciosController extends Controller
     {
 
         $data = Precios::find($id); 
+        $this->authorize('view', $data); 
+
         $productos = DB::table('productos')->where('empresa_id', Auth::user()->empresa_id )->where('status', 120 )->get();       
         $titulo = 'Precios';
 
@@ -83,6 +85,8 @@ class PreciosController extends Controller
 */
     public function update(Request $request, $id)
     {
+        $data = Precios::find($id);
+        $this->authorize('view', $data);  
 
         $request['user_update'] = Auth::id();
         $datos = Precios::find($id)->update($request->all());    
@@ -121,6 +125,7 @@ class PreciosController extends Controller
     {
 
         $data = Precios::find($id);
+        $this->authorize('view', $data);
         $data->status = 122;
         $data->user_update = Auth::id();
         $data->save();
@@ -139,6 +144,7 @@ class PreciosController extends Controller
     public function inactive($id)
     {
         $data = Precios::find($id);
+        $this->authorize('view', $data);
         $data->status = 123;
         $data->user_update = Auth::id();
         $data->save();

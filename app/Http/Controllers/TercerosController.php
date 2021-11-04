@@ -68,6 +68,8 @@ class TercerosController extends Controller
     public function edit($id)
     {
         $data = Terceros::find($id); 
+        $this->authorize('view', $data);
+
         $ciudades = DB::table('ciudades')->select('ciudades.*')->where('status', 1 )->get();
         $terceros = DB::table('catalogos')->select('catalogos.*')->where('nombre', 8 )->where('status', 1 )->get();
         $tipos = DB::table('catalogos')->select('catalogos.*')->where('nombre', 3 )->where('status', 1 )->get();
@@ -87,6 +89,9 @@ class TercerosController extends Controller
 */
     public function update(Request $request, $id)
     {
+        $data = Terceros::find($id);
+        $this->authorize('view', $data);  
+
         $request['user_update'] = Auth::id();
         $datos = Terceros::find($id)->update($request->all());  
         
@@ -124,6 +129,7 @@ class TercerosController extends Controller
     {
 
         $data = Terceros::find($id);
+        $this->authorize('view', $data);
         $data->status = 118;
         $data->user_update = Auth::id();
         $data->save();
@@ -142,6 +148,7 @@ class TercerosController extends Controller
     public function inactive($id)
     {
         $data = Terceros::find($id);
+        $this->authorize('view', $data);
         $data->status = 119;
         $data->user_update = Auth::id();
         $data->save();

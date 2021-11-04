@@ -67,6 +67,8 @@ class VendedoresController extends Controller
     {
 
         $data = Vendedores::find($id); 
+        $this->authorize('view', $data); 
+
         $titulo = 'Vendedores';
 
         return view ('vendedores.edit')->with (compact('data', 'titulo'));
@@ -82,6 +84,8 @@ class VendedoresController extends Controller
 */
     public function update(Request $request, $id)
     { 
+        $data = Vendedores::find($id);
+        $this->authorize('view', $data); 
 
         $request['user_update'] = Auth::id();
         $datos = Vendedores::find($id)->update($request->all());    
@@ -120,6 +124,7 @@ class VendedoresController extends Controller
     {
 
         $data = Vendedores::find($id);
+        $this->authorize('view', $data);
         $data->status = 114;
         $data->user_update = Auth::id();
         $data->save();
@@ -138,6 +143,7 @@ class VendedoresController extends Controller
     public function inactive($id)
     {
         $data = Vendedores::find($id);
+        $this->authorize('view', $data);
         $data->status = 115;
         $data->user_update = Auth::id();
         $data->save();

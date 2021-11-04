@@ -73,7 +73,9 @@ class CategoriasController extends Controller
     public function edit($id)
     {
 
-        $data = Categorias::find($id); 
+        $data = Categorias::find($id);
+        $this->authorize('view', $data);          
+        
         $titulo = 'Categorías';
 
         return view ('categorias.edit')->with (compact('data', 'titulo'));
@@ -89,6 +91,9 @@ class CategoriasController extends Controller
 */
     public function update(Request $request, $id)
     { 
+
+        $data = Categorias::find($id);
+        $this->authorize('view', $data);  
 
         $request['user_update'] = Auth::id();
         $datos = Categorias::find($id)->update($request->all());    
@@ -108,6 +113,9 @@ class CategoriasController extends Controller
     public function destroy($id)
     {
         $data = Categorias::find($id);
+        $this->authorize('view', $data);
+
+        $data = Categorias::find($id);
         $data->status = 3;
         $data->user_update = Auth::id();
         $data->save();
@@ -125,8 +133,8 @@ class CategoriasController extends Controller
 
     public function active($id)
     {
-
         $data = Categorias::find($id);
+        $this->authorize('view', $data);
         $data->status = 39;
         $data->user_update = Auth::id();
         $data->save();
@@ -145,6 +153,7 @@ class CategoriasController extends Controller
     public function inactive($id)
     {
         $data = Categorias::find($id);
+        $this->authorize('view', $data);
         $data->status = 40;
         $data->user_update = Auth::id();
         $data->save();

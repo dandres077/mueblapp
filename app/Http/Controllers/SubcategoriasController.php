@@ -67,6 +67,8 @@ class SubcategoriasController extends Controller
     {
 
         $data = Subcategorias::find($id); 
+        $this->authorize('view', $data);
+        
         $categorias = DB::table('categorias')->where('empresa_id', Auth::user()->empresa_id )->where('status', 39)->get();        
         $titulo = 'Subcategorias';
 
@@ -83,6 +85,8 @@ class SubcategoriasController extends Controller
 */
     public function update(Request $request, $id)
     {
+        $data = Subcategorias::find($id);
+        $this->authorize('view', $data);  
 
         $request['user_update'] = Auth::id();
         $datos = Subcategorias::find($id)->update($request->all());    
@@ -121,6 +125,7 @@ class SubcategoriasController extends Controller
     {
 
         $data = Subcategorias::find($id);
+        $this->authorize('view', $data);
         $data->status = 41;
         $data->user_update = Auth::id();
         $data->save();
@@ -139,6 +144,7 @@ class SubcategoriasController extends Controller
     public function inactive($id)
     {
         $data = Subcategorias::find($id);
+        $this->authorize('view', $data);
         $data->status = 42;
         $data->user_update = Auth::id();
         $data->save();

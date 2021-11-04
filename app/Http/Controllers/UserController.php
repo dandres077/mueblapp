@@ -22,13 +22,14 @@ class UserController extends Controller
 
      public function index() 
     {
-
-        //$data = User::all();
-
         $data = DB::table('users')
-                    ->select('users.*')
-                    ->orderByRaw('id ASC')
-                    ->get();
+                ->leftJoin('empresas', 'users.empresa_id', '=', 'empresas.id')
+                ->select(
+                    'users.*',
+                    'empresas.nombre AS nom_empresa')
+                ->where('users.status', '<>', 3 )
+                ->orderByRaw('users.id ASC')
+                ->get();
 
         return view ('usuarios.index')->with (compact('data'));
 
@@ -43,8 +44,10 @@ class UserController extends Controller
     {
 
         $roles = Role::get();
+        
+        $empresas = DB::table('empresas')->select('empresas.*')->where('status', '!=', 3)->orderByRaw('id ASC')->get();
 
-        return view ('usuarios.create')->with (compact('roles'));
+        return view ('usuarios.create')->with (compact('roles', 'empresas'));
 
     }
 
@@ -81,7 +84,9 @@ class UserController extends Controller
             ->where('model_id', '=', $id)
             ->get();
 
-        return view ('usuarios.edit')->with(compact('user', 'roles', 'rol_user', 'id'));
+        $empresas = DB::table('empresas')->select('empresas.*')->where('status', '!=', 3)->orderByRaw('id ASC')->get();
+
+        return view ('usuarios.edit')->with(compact('user', 'roles', 'rol_user', 'id', 'empresas'));
     }
 
 

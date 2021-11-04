@@ -82,6 +82,7 @@
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Email</th>
+                    <th>Empresa</th>
                     <th>Estado</th>
                     <th></th>
                 </tr>
@@ -93,6 +94,7 @@
                     <td>{{$users->name}}</td>
                     <td>{{$users->last}}</td>                     
                     <td>{{$users->email}}</td>
+                    <td>{{$users->nom_empresa}}</td>
                     <td>                     
                     @can('usuarios.active')        
                     @if ($users->status==1)
@@ -125,6 +127,7 @@
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Email</th>
+                    <th>Empresa</th>
                     <th>Estado</th>
                     <th></th>
                 </tr>
