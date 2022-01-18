@@ -29,6 +29,10 @@ class CreateDocumentosTable extends Migration
             $table->date('fechaent')->nullable(); // Opcional
             $table->decimal('dcto1', 2, 1)->nullable(); // Opcional
             $table->decimal('dcto2', 2, 1)->nullable(); // Opcional
+            $table->decimal('subtotal', 2, 1)->nullable(); // Opcional
+            $table->unsignedBigInteger('contacto_id')->index()->nullable();
+            $table->integer('ubicacion_id')->nullable(); // Opcional
+
         
             $table->integer('status')->default(1); //Obligatorio
             $table->integer('user_create')->nullable(); //Obligatorio
@@ -39,7 +43,7 @@ class CreateDocumentosTable extends Migration
             $table->foreign('tipo_doc')->references('id')->on('catalogos')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('tercero_id')->references('id')->on('terceros')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('impreso')->references('id')->on('catalogos')->onDelete('cascade')->onUpdate('cascade');
-
+            $table->foreign('contacto_id')->references('id')->on('terceros')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
