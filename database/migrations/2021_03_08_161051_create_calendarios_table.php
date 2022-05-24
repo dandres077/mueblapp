@@ -14,21 +14,19 @@ class CreateCalendariosTable extends Migration
     public function up()
     {
         Schema::create('calendarios', function (Blueprint $table) {
-            $table->id('id'); // Obligatorio
-
-            $table->date('fecha')->nullable(); // Opcional
-            $table->integer('ano')->nullable(); // Opcional
-            $table->integer('mes')->nullable(); // Opcional
-            $table->decimal('esfuerzo_dia', 2, 1)->nullable(); // Opcional
-            $table->enum('dia_habil',['Si', 'No'])->default('No'); // Opcional
-            $table->string('nombre_dia')->nullable(); // Opcional
-            $table->integer('semana')->nullable(); // Opcional
-            $table->integer('semanames')->nullable(); // Opcional
-
-            $table->integer('status')->default(1); //Obligatorio
-            $table->integer('user_create')->nullable(); //Obligatorio
-            $table->integer('user_update')->nullable(); //Obligatorio
-            $table->timestamps(); //Obligatorio
+            $table->id('id'); 
+            $table->date('fecha')->nullable(); 
+            $table->integer('ano')->nullable(); 
+            $table->integer('mes')->nullable(); 
+            $table->decimal('esfuerzo_dia', 2, 1)->nullable(); 
+            $table->enum('dia_habil',['Si', 'No'])->default('No'); 
+            $table->string('nombre_dia')->nullable(); 
+            $table->integer('semana')->nullable(); 
+            $table->integer('semanames')->nullable(); 
+            $table->integer('status')->default(1); 
+            $table->integer('user_create')->nullable(); 
+            $table->integer('user_update')->nullable(); 
+            $table->timestamps(); 
         
         });
     }

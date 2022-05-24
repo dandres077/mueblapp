@@ -14,23 +14,20 @@ class CreatePagosDetsTable extends Migration
     public function up()
     {
         Schema::create('pagos_dets', function (Blueprint $table) {
-            $table->id('id'); // Obligatorio
-
-            $table->unsignedBigInteger('empresa_id')->index()->nullable(); // Si es foranea se ingresa el código inferior
-            $table->unsignedBigInteger('pago_id')->index()->nullable(); // Si es foranea se ingresa el código inferior
-            $table->date('fecha')->nullable(); // Opcional
-            $table->unsignedBigInteger('medio_pago_id')->index()->nullable(); // Si es foranea se ingresa el código inferior
-            $table->unsignedBigInteger('documento_id')->index()->nullable(); // Si es foranea se ingresa el código inferior
-
-            $table->decimal('valor', 2, 1)->nullable(); // Opcional
-            $table->unsignedBigInteger('moneda')->index()->nullable(); // Si es foranea se ingresa el código inferior
-            $table->text('observation')->nullable(); // Opcional
-            $table->unsignedBigInteger('tercero_id')->index()->nullable(); // Si es foranea se ingresa el código inferior
-        
-            $table->integer('status')->default(1); //Obligatorio
-            $table->integer('user_create')->nullable(); //Obligatorio
-            $table->integer('user_update')->nullable(); //Obligatorio
-            $table->timestamps(); //Obligatorio
+            $table->id('id'); 
+            $table->unsignedBigInteger('empresa_id')->index()->nullable(); 
+            $table->unsignedBigInteger('pago_id')->index()->nullable(); 
+            $table->date('fecha')->nullable(); 
+            $table->unsignedBigInteger('medio_pago_id')->index()->nullable(); 
+            $table->unsignedBigInteger('documento_id')->index()->nullable(); 
+            $table->decimal('valor', 2, 1)->nullable(); 
+            $table->unsignedBigInteger('moneda')->index()->nullable(); 
+            $table->text('observation')->nullable(); 
+            $table->unsignedBigInteger('tercero_id')->index()->nullable(); 
+            $table->integer('status')->default(1); 
+            $table->integer('user_create')->nullable(); 
+            $table->integer('user_update')->nullable(); 
+            $table->timestamps(); 
         
             $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('pago_id')->references('id')->on('pagos')->onDelete('cascade')->onUpdate('cascade');

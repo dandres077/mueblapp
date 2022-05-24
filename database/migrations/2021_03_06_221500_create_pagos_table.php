@@ -14,19 +14,17 @@ class CreatePagosTable extends Migration
     public function up()
     {
         Schema::create('pagos', function (Blueprint $table) {
-            $table->id('id'); // Obligatorio
-
-            $table->unsignedBigInteger('empresa_id')->index()->nullable(); // Si es foranea se ingresa el código inferior
-            $table->date('fecha')->nullable(); // Opcional
-            $table->unsignedBigInteger('tipo_pago')->index()->nullable(); // Si es foranea se ingresa el código inferior
-            $table->unsignedBigInteger('impreso')->index()->nullable(); // Si es foranea se ingresa el código inferior
-            $table->decimal('valor', 2, 1)->nullable(); // Opcional
-            $table->string('valorletras')->nullable(); // Opcional
-        
-            $table->integer('status')->default(1); //Obligatorio
-            $table->integer('user_create')->nullable(); //Obligatorio
-            $table->integer('user_update')->nullable(); //Obligatorio
-            $table->timestamps(); //Obligatorio
+            $table->id('id'); 
+            $table->unsignedBigInteger('empresa_id')->index()->nullable(); 
+            $table->date('fecha')->nullable(); 
+            $table->unsignedBigInteger('tipo_pago')->index()->nullable(); 
+            $table->unsignedBigInteger('impreso')->index()->nullable(); 
+            $table->decimal('valor', 2, 1)->nullable(); 
+            $table->string('valorletras')->nullable();         
+            $table->integer('status')->default(1); 
+            $table->integer('user_create')->nullable(); 
+            $table->integer('user_update')->nullable(); 
+            $table->timestamps(); 
         
             $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('tipo_pago')->references('id')->on('catalogos')->onDelete('cascade')->onUpdate('cascade');

@@ -14,30 +14,27 @@ class CreateDocumentosTable extends Migration
     public function up()
     {
         Schema::create('documentos', function (Blueprint $table) {
-            $table->id('id'); // Obligatorio
-
-            $table->unsignedBigInteger('empresa_id')->index()->nullable(); // Si es foranea se ingresa el código inferior
-            $table->date('fecha')->nullable(); // Opcional
-            $table->unsignedBigInteger('tipo_doc')->index()->nullable(); // Si es foranea se ingresa el código inferior
-            $table->unsignedBigInteger('tercero_id')->index()->nullable(); // Si es foranea se ingresa el código inferior
-            $table->decimal('valor', 2, 1)->nullable(); // Opcional
-            $table->decimal('impuesto', 2, 1)->nullable(); // Opcional
-            $table->decimal('retencion', 2, 1)->nullable(); // Opcional
-            $table->text('observation')->nullable(); // Opcional
-            $table->unsignedBigInteger('impreso')->index()->nullable(); // Si es foranea se ingresa el código inferior
-            $table->enum('liberado',['Si', 'No'])->default('No'); // Opcional
-            $table->date('fechaent')->nullable(); // Opcional
-            $table->decimal('dcto1', 2, 1)->nullable(); // Opcional
-            $table->decimal('dcto2', 2, 1)->nullable(); // Opcional
-            $table->decimal('subtotal', 2, 1)->nullable(); // Opcional
+            $table->id('id'); 
+            $table->unsignedBigInteger('empresa_id')->index()->nullable(); 
+            $table->date('fecha')->nullable(); 
+            $table->unsignedBigInteger('tipo_doc')->index()->nullable(); 
+            $table->unsignedBigInteger('tercero_id')->index()->nullable(); 
+            $table->decimal('valor', 2, 1)->nullable(); 
+            $table->decimal('impuesto', 2, 1)->nullable(); 
+            $table->decimal('retencion', 2, 1)->nullable(); 
+            $table->text('observation')->nullable(); 
+            $table->unsignedBigInteger('impreso')->index()->nullable(); 
+            $table->enum('liberado',['Si', 'No'])->default('No'); 
+            $table->date('fechaent')->nullable(); 
+            $table->decimal('dcto1', 2, 1)->nullable(); 
+            $table->decimal('dcto2', 2, 1)->nullable(); 
+            $table->decimal('subtotal', 2, 1)->nullable(); 
             $table->unsignedBigInteger('contacto_id')->index()->nullable();
-            $table->integer('ubicacion_id')->nullable(); // Opcional
-
-        
-            $table->integer('status')->default(1); //Obligatorio
-            $table->integer('user_create')->nullable(); //Obligatorio
-            $table->integer('user_update')->nullable(); //Obligatorio
-            $table->timestamps(); //Obligatorio
+            $table->integer('ubicacion_id')->nullable();         
+            $table->integer('status')->default(1); 
+            $table->integer('user_create')->nullable(); 
+            $table->integer('user_update')->nullable(); 
+            $table->timestamps(); 
         
             $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('tipo_doc')->references('id')->on('catalogos')->onDelete('cascade')->onUpdate('cascade');
