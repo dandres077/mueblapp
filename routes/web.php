@@ -295,5 +295,20 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('admin/precios/data/informacion', 'PreciosController@precios')->name('precios.datatable')->middleware('permiso:precios.datatable');
 
 
+/*
+|--------------------------------------------------------------------------
+| Marcas
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/marcas/store', 'MarcasController@store')->middleware('permiso:marcas.store'); 
+	Route::get('admin/marcas', 'MarcasController@index')->middleware('permiso:marcas.index'); 
+	Route::get('admin/marcas/create', 'MarcasController@create')->middleware('permiso:marcas.create'); 
+	Route::post('admin/marcas/{id}/edit', 'MarcasController@update')->middleware('permiso:marcas.update'); 
+	Route::get('admin/marcas/{id}/edit', 'MarcasController@edit')->middleware('permiso:marcas.edit'); 
+	Route::post('admin/marcas/{id}/active', 'MarcasController@active')->middleware('permiso:marcas.active'); 
+	Route::post('admin/marcas/{id}/inactive', 'MarcasController@inactive')->middleware('permiso:marcas.inactive'); 
+
 
 });

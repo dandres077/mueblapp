@@ -15,7 +15,7 @@ class UsersSeeder extends Seeder
         User::create([
         	'name' => 'David', 
         	'last' => 'Contreras', 
-        	'email' => 'da.contrerasp@uniandes.edu.co', 
+        	'email' => 'davidcontreras07@gmail.com', 
         	'password' => bcrypt('123456'),
             'imagen' => 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png',
             'empresa_id' => 1

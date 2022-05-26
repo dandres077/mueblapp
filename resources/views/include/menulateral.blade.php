@@ -170,6 +170,10 @@
                             <li class="kt-menu__item {{ request()->is('admin/empresas*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/empresas/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Empresas</span></a></li>
                             @endcan
 
+                            @can('marcas.index')
+                            <li class="kt-menu__item {{ request()->is('admin/marcas*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/marcas/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Marcas</span></a></li>
+                            @endcan
+
                             @can('paises.index')
                             <li class="kt-menu__item {{ request()->is('admin/paises*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/paises/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Pa&iacute;ses</span></a></li>
                             @endcan

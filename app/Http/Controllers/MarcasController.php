@@ -4,82 +4,153 @@ namespace App\Http\Controllers;
 
 use App\Marcas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use DB;
+
 
 class MarcasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+/*
+|--------------------------------------------------------------------------
+| index
+|--------------------------------------------------------------------------
+|
+*/
+
     public function index()
     {
-        //
+        $data = DB::table('marcas')
+                    ->where('status', '!=' ,3 )
+                    ->orderByRaw('id ASC')
+                    ->get();
+
+        $titulo = 'Marcas';
+        
+
+        return view('marcas.index', compact('data', 'titulo'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+/*
+|--------------------------------------------------------------------------
+| create
+|--------------------------------------------------------------------------
+|
+*/
+
     public function create()
     {
-        //
+        $titulo = 'Marcas';
+
+        return view('marcas.create', compact('titulo'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+/*
+|--------------------------------------------------------------------------
+| store
+|--------------------------------------------------------------------------
+|
+*/
     public function store(Request $request)
     {
-        //
+
+        $request['user_create'] = Auth::id();
+        $data = Marcas::create($request->all());
+
+        return redirect ('admin/marcas')->with('success', 'Registro creado exitosamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Marcas  $marcas
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Marcas $marcas)
+
+/*
+|--------------------------------------------------------------------------
+| edit
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function edit($id)
     {
-        //
+
+        $data = Marcas::find($id); 
+        $titulo = 'Marcas';
+
+        return view ('marcas.edit')->with (compact('data', 'titulo'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Marcas  $marcas
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Marcas $marcas)
+
+
+/*
+|--------------------------------------------------------------------------
+| update
+|--------------------------------------------------------------------------
+|
+*/
+    public function update(Request $request, $id)
     {
-        //
+
+        $data = Marcas::find($id);
+        $data->nombre = $request->input('nombre');
+        $data->user_update = Auth::id();
+        $data->save();
+
+        
+        return redirect ('admin/marcas')->with('success', 'Registro actualizado exitosamente');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Marcas  $marcas
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Marcas $marcas)
+
+
+/*
+|--------------------------------------------------------------------------
+| destroy
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function destroy($id)
     {
-        //
+        $data = Marcas::find($id);
+        $data->status = 3;
+        $data->user_update = Auth::id();
+        $data->save();
+  
+        return redirect ('admin/marcas');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Marcas  $marcas
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Marcas $marcas)
+
+/*
+|--------------------------------------------------------------------------
+| Activar publicación
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function active($id)
     {
-        //
+
+        $data = Marcas::find($id);
+        $data->status = 1;
+        $data->user_update = Auth::id();
+        $data->save();
+  
+        return redirect ('admin/marcas');
+    }
+
+
+/*
+|--------------------------------------------------------------------------
+| Desactivar publicación
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function inactive($id)
+    {
+        $data = Marcas::find($id);
+        $data->status = 2;
+        $data->user_update = Auth::id();
+        $data->save();
+
+        return redirect ('admin/marcas');
     }
 }

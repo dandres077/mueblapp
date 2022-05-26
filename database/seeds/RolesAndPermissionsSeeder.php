@@ -155,6 +155,15 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'precios.active']); 
 		Permission::create(['name' => 'precios.inactive']); 
 		Permission::create(['name' => 'precios.datatable']);
+
+		Permission::create(['name' => 'marcas.store']); 
+		Permission::create(['name' => 'marcas.index']); 
+		Permission::create(['name' => 'marcas.create']); 
+		Permission::create(['name' => 'marcas.update']); 
+		Permission::create(['name' => 'marcas.edit']); 
+		Permission::create(['name' => 'marcas.active']); 
+		Permission::create(['name' => 'marcas.inactive']); 
+		Permission::create(['name' => 'marcas.datatable']);
 		
 
         // create roles and assign created permissions
