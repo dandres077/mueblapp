@@ -310,5 +310,22 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/marcas/{id}/active', 'MarcasController@active')->middleware('permiso:marcas.active'); 
 	Route::post('admin/marcas/{id}/inactive', 'MarcasController@inactive')->middleware('permiso:marcas.inactive'); 
 
+/*
+|--------------------------------------------------------------------------
+| Modelos
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/modelos/store', 'ModelosController@store')->middleware('permiso:modelos.store'); 
+	Route::get('admin/modelos', 'ModelosController@index')->middleware('permiso:modelos.index'); 
+	Route::get('admin/modelos/create', 'ModelosController@create')->middleware('permiso:modelos.create'); 
+	Route::post('admin/modelos/{id}/edit', 'ModelosController@update')->middleware('permiso:modelos.update'); 
+	Route::get('admin/modelos/{id}', 'ModelosController@show')->middleware('permiso:modelos.show'); 
+	Route::delete('admin/modelos/{id}', 'ModelosController@destroy')->middleware('permiso:modelos.destroy'); 
+	Route::get('admin/modelos/{id}/edit', 'ModelosController@edit')->middleware('permiso:modelos.edit'); 
+	Route::post('admin/modelos/{id}/active', 'ModelosController@active')->middleware('permiso:modelos.active'); 
+	Route::post('admin/modelos/{id}/inactive', 'ModelosController@inactive')->middleware('permiso:modelos.inactive'); 
+
 
 });
