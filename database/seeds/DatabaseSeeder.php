@@ -32,3 +32,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PreciosSeeder::class); 
     }
 }
+
+
+

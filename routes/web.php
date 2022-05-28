@@ -328,4 +328,22 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/modelos/{id}/inactive', 'ModelosController@inactive')->middleware('permiso:modelos.inactive'); 
 
 
+/*
+|--------------------------------------------------------------------------
+| Modelos
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/ingenieros/store', 'ingenierosController@store')->middleware('permiso:ingenieros.store'); 
+	Route::get('admin/ingenieros', 'ingenierosController@index')->middleware('permiso:ingenieros.index'); 
+	Route::get('admin/ingenieros/create', 'ingenierosController@create')->middleware('permiso:ingenieros.create'); 
+	Route::post('admin/ingenieros/{id}/edit', 'ingenierosController@update')->middleware('permiso:ingenieros.update'); 
+	Route::get('admin/ingenieros/{id}', 'ingenierosController@show')->middleware('permiso:ingenieros.show'); 
+	Route::delete('admin/ingenieros/{id}', 'ingenierosController@destroy')->middleware('permiso:ingenieros.destroy'); 
+	Route::get('admin/ingenieros/{id}/edit', 'ingenierosController@edit')->middleware('permiso:ingenieros.edit'); 
+	Route::post('admin/ingenieros/{id}/active', 'ingenierosController@active')->middleware('permiso:ingenieros.active'); 
+	Route::post('admin/ingenieros/{id}/inactive', 'ingenierosController@inactive')->middleware('permiso:ingenieros.inactive'); 
+
+
 });
