@@ -55,6 +55,7 @@ class MarcasController extends Controller
     public function store(Request $request)
     {
 
+        $request['empresa_id'] = Auth::user()->empresa_id;
         $request['user_create'] = Auth::id();
         $data = Marcas::create($request->all());
 

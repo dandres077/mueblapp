@@ -4,82 +4,154 @@ namespace App\Http\Controllers;
 
 use App\Bodegas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use DB;
+
 
 class BodegasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+/*
+|--------------------------------------------------------------------------
+| index
+|--------------------------------------------------------------------------
+|
+*/
+
     public function index()
     {
-        //
+        $data = DB::table('bodegas')
+                    ->orderByRaw('id ASC')
+                    ->get();
+
+        $titulo = 'Bodegas';
+        
+
+        return view('bodegas.index', compact('data', 'titulo'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+/*
+|--------------------------------------------------------------------------
+| create
+|--------------------------------------------------------------------------
+|
+*/
+
     public function create()
     {
-        //
+        $titulo = 'Bodegas';
+
+        return view('bodegas.create', compact('titulo'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+/*
+|--------------------------------------------------------------------------
+| store
+|--------------------------------------------------------------------------
+|
+*/
     public function store(Request $request)
     {
-        //
+
+        $request['empresa_id'] = Auth::user()->empresa_id;
+        $request['user_create'] = Auth::id();
+        $data = Bodegas::create($request->all());
+
+        return redirect ('admin/bodegas')->with('success', 'Registro creado exitosamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Bodegas  $bodegas
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Bodegas $bodegas)
+
+/*
+|--------------------------------------------------------------------------
+| edit
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function edit($id)
     {
-        //
+
+        $data = Bodegas::find($id); 
+        $titulo = 'Bodegas';
+
+        return view ('bodegas.edit')->with (compact('data', 'titulo'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Bodegas  $bodegas
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Bodegas $bodegas)
+
+
+/*
+|--------------------------------------------------------------------------
+| update
+|--------------------------------------------------------------------------
+|
+*/
+    public function update(Request $request, $id)
     {
-        //
+
+        $data = Bodegas::find($id);
+        $data->nombre = $request->input('nombre');
+        $data->user_update = Auth::id();
+        $data->save();
+
+        
+        return redirect ('admin/bodegas')->with('success', 'Registro actualizado exitosamente');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Bodegas  $bodegas
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Bodegas $bodegas)
+
+
+/*
+|--------------------------------------------------------------------------
+| destroy
+|--------------------------------------------------------------------------
+|
+*/
+
+    /*public function destroy($id)
     {
-        //
+        $data = Bodegas::find($id);
+        $data->status = ;
+        $data->user_update = Auth::id();
+        $data->save();
+  
+        return redirect ('admin/bodegas');
+    }*/
+
+
+/*
+|--------------------------------------------------------------------------
+| Activar publicación
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function active($id)
+    {
+
+        $data = Bodegas::find($id);
+        $data->status = 37;
+        $data->user_update = Auth::id();
+        $data->save();
+  
+        return redirect ('admin/bodegas');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Bodegas  $bodegas
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Bodegas $bodegas)
+
+/*
+|--------------------------------------------------------------------------
+| Desactivar publicación
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function inactive($id)
     {
-        //
+        $data = Bodegas::find($id);
+        $data->status = 38;
+        $data->user_update = Auth::id();
+        $data->save();
+
+        return redirect ('admin/bodegas');
     }
 }
+

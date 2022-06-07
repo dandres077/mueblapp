@@ -4,82 +4,154 @@ namespace App\Http\Controllers;
 
 use App\Ubicaciones;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use DB;
+
 
 class UbicacionesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+/*
+|--------------------------------------------------------------------------
+| index
+|--------------------------------------------------------------------------
+|
+*/
+
     public function index()
     {
-        //
+        $data = DB::table('ubicaciones')
+                    ->where('status', '!=' ,3 )
+                    ->orderByRaw('id ASC')
+                    ->get();
+
+        $titulo = 'Ubicaciones';
+        
+
+        return view('ubicaciones.index', compact('data', 'titulo'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+/*
+|--------------------------------------------------------------------------
+| create
+|--------------------------------------------------------------------------
+|
+*/
+
     public function create()
     {
-        //
+        $titulo = 'Ubicaciones';
+
+        return view('ubicaciones.create', compact('titulo'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+/*
+|--------------------------------------------------------------------------
+| store
+|--------------------------------------------------------------------------
+|
+*/
     public function store(Request $request)
     {
-        //
+
+        $request['empresa_id'] = Auth::user()->empresa_id;
+        $request['user_create'] = Auth::id();
+        $data = Ubicaciones::create($request->all());
+
+        return redirect ('admin/ubicaciones')->with('success', 'Registro creado exitosamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Ubicaciones  $ubicaciones
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Ubicaciones $ubicaciones)
+
+/*
+|--------------------------------------------------------------------------
+| edit
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function edit($id)
     {
-        //
+
+        $data = Ubicaciones::find($id); 
+        $titulo = 'Ubicaciones';
+
+        return view ('ubicaciones.edit')->with (compact('data', 'titulo'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Ubicaciones  $ubicaciones
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Ubicaciones $ubicaciones)
+
+
+/*
+|--------------------------------------------------------------------------
+| update
+|--------------------------------------------------------------------------
+|
+*/
+    public function update(Request $request, $id)
     {
-        //
+
+        $data = Ubicaciones::find($id);
+        $data->nombre = $request->input('nombre');
+        $data->user_update = Auth::id();
+        $data->save();
+
+        
+        return redirect ('admin/ubicaciones')->with('success', 'Registro actualizado exitosamente');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Ubicaciones  $ubicaciones
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Ubicaciones $ubicaciones)
+
+
+/*
+|--------------------------------------------------------------------------
+| destroy
+|--------------------------------------------------------------------------
+|
+*/
+
+    /*public function destroy($id)
     {
-        //
+        $data = Ubicaciones::find($id);
+        $data->status = 3;
+        $data->user_update = Auth::id();
+        $data->save();
+  
+        return redirect ('admin/ubicaciones');
+    }*/
+
+
+/*
+|--------------------------------------------------------------------------
+| Activar publicación
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function active($id)
+    {
+
+        $data = Ubicaciones::find($id);
+        $data->status = 37;
+        $data->user_update = Auth::id();
+        $data->save();
+  
+        return redirect ('admin/ubicaciones');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Ubicaciones  $ubicaciones
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Ubicaciones $ubicaciones)
+
+/*
+|--------------------------------------------------------------------------
+| Desactivar publicación
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function inactive($id)
     {
-        //
+        $data = Ubicaciones::find($id);
+        $data->status = 38;
+        $data->user_update = Auth::id();
+        $data->save();
+
+        return redirect ('admin/ubicaciones');
     }
 }

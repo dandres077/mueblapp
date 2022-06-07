@@ -346,4 +346,52 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/ingenieros/{id}/inactive', 'ingenierosController@inactive')->middleware('permiso:ingenieros.inactive'); 
 
 
+/*
+|--------------------------------------------------------------------------
+| Bodegas
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/bodegas/store', 'BodegasController@store')->middleware('permiso:bodegas.store'); 
+	Route::get('admin/bodegas', 'BodegasController@index')->middleware('permiso:bodegas.index'); 
+	Route::get('admin/bodegas/create', 'BodegasController@create')->middleware('permiso:bodegas.create'); 
+	Route::post('admin/bodegas/{id}/edit', 'BodegasController@update')->middleware('permiso:bodegas.update'); 
+	Route::get('admin/bodegas/{id}/edit', 'BodegasController@edit')->middleware('permiso:bodegas.edit'); 
+	Route::post('admin/bodegas/{id}/active', 'BodegasController@active')->middleware('permiso:bodegas.active'); 
+	Route::post('admin/bodegas/{id}/inactive', 'BodegasController@inactive')->middleware('permiso:bodegas.inactive'); 
+
+
+/*
+|--------------------------------------------------------------------------
+| Ubicaciones
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/ubicaciones/store', 'UbicacionesController@store')->middleware('permiso:ubicaciones.store'); 
+	Route::get('admin/ubicaciones', 'UbicacionesController@index')->middleware('permiso:ubicaciones.index'); 
+	Route::get('admin/ubicaciones/create', 'UbicacionesController@create')->middleware('permiso:ubicaciones.create'); 
+	Route::post('admin/ubicaciones/{id}/edit', 'UbicacionesController@update')->middleware('permiso:ubicaciones.update'); 
+	Route::get('admin/ubicaciones/{id}/edit', 'UbicacionesController@edit')->middleware('permiso:ubicaciones.edit'); 
+	Route::post('admin/ubicaciones/{id}/active', 'UbicacionesController@active')->middleware('permiso:ubicaciones.active'); 
+	Route::post('admin/ubicaciones/{id}/inactive', 'UbicacionesController@inactive')->middleware('permiso:ubicaciones.inactive'); 
+
+
+/*
+|--------------------------------------------------------------------------
+| Clientes
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/clientes/store', 'ClientesController@store')->middleware('permiso:clientes.store'); 
+	Route::get('admin/clientes', 'ClientesController@index')->middleware('permiso:clientes.index'); 
+	Route::get('admin/clientes/create', 'ClientesController@create')->middleware('permiso:clientes.create'); 
+	Route::post('admin/clientes/{id}/edit', 'ClientesController@update')->middleware('permiso:clientes.update'); 
+	Route::get('admin/clientes/{id}/edit', 'ClientesController@edit')->middleware('permiso:clientes.edit'); 
+	Route::post('admin/clientes/{id}/active', 'ClientesController@active')->middleware('permiso:clientes.active'); 
+	Route::post('admin/clientes/{id}/inactive', 'ClientesController@inactive')->middleware('permiso:clientes.inactive'); 
+	Route::get('admin/clientes/data/informacion', 'ClientesController@clientes')->name('clientes.datatable')->middleware('permiso:clientes.datatable');
+
 });

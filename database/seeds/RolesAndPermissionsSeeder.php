@@ -174,6 +174,37 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'modelos.edit']); 
 		Permission::create(['name' => 'modelos.active']); 
 		Permission::create(['name' => 'modelos.inactive']); 
+
+
+		Permission::create(['name' => 'bodegas.store']); 
+		Permission::create(['name' => 'bodegas.index']); 
+		Permission::create(['name' => 'bodegas.create']); 
+		Permission::create(['name' => 'bodegas.update']); 
+		Permission::create(['name' => 'bodegas.show']); 
+		Permission::create(['name' => 'bodegas.destroy']); 
+		Permission::create(['name' => 'bodegas.edit']); 
+		Permission::create(['name' => 'bodegas.active']); 
+		Permission::create(['name' => 'bodegas.inactive']); 
+
+		Permission::create(['name' => 'ubicaciones.store']); 
+		Permission::create(['name' => 'ubicaciones.index']); 
+		Permission::create(['name' => 'ubicaciones.create']); 
+		Permission::create(['name' => 'ubicaciones.update']); 
+		Permission::create(['name' => 'ubicaciones.show']); 
+		Permission::create(['name' => 'ubicaciones.destroy']); 
+		Permission::create(['name' => 'ubicaciones.edit']); 
+		Permission::create(['name' => 'ubicaciones.active']); 
+		Permission::create(['name' => 'ubicaciones.inactive']); 
+
+
+		Permission::create(['name' => 'clientes.store']); 
+		Permission::create(['name' => 'clientes.index']); 
+		Permission::create(['name' => 'clientes.create']); 
+		Permission::create(['name' => 'clientes.update']); 
+		Permission::create(['name' => 'clientes.edit']); 
+		Permission::create(['name' => 'clientes.active']); 
+		Permission::create(['name' => 'clientes.inactive']); 
+		Permission::create(['name' => 'clientes.datatable']);
 		
 
         // create roles and assign created permissions
