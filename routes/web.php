@@ -394,4 +394,40 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/clientes/{id}/inactive', 'ClientesController@inactive')->middleware('permiso:clientes.inactive'); 
 	Route::get('admin/clientes/data/informacion', 'ClientesController@clientes')->name('clientes.datatable')->middleware('permiso:clientes.datatable');
 
+
+/*
+|--------------------------------------------------------------------------
+| Clientes
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/colaboradores/store', 'ColaboradoresController@store')->middleware('permiso:colaboradores.store'); 
+	Route::get('admin/colaboradores', 'ColaboradoresController@index')->middleware('permiso:colaboradores.index'); 
+	Route::get('admin/colaboradores/create', 'ColaboradoresController@create')->middleware('permiso:colaboradores.create'); 
+	Route::post('admin/colaboradores/{id}/edit', 'ColaboradoresController@update')->middleware('permiso:colaboradores.update'); 
+	Route::get('admin/colaboradores/{id}/edit', 'ColaboradoresController@edit')->middleware('permiso:colaboradores.edit'); 
+	Route::post('admin/colaboradores/{id}/active', 'ColaboradoresController@active')->middleware('permiso:colaboradores.active'); 
+	Route::post('admin/colaboradores/{id}/inactive', 'ColaboradoresController@inactive')->middleware('permiso:colaboradores.inactive'); 
+	Route::get('admin/colaboradores/data/informacion', 'ColaboradoresController@colaboradores')->name('colaboradores.datatable')->middleware('permiso:colaboradores.datatable');
+
+
+/*
+|--------------------------------------------------------------------------
+| Clientes
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/proveedores/store', 'ProveedoresController@store')->middleware('permiso:proveedores.store'); 
+	Route::get('admin/proveedores', 'ProveedoresController@index')->middleware('permiso:proveedores.index'); 
+	Route::get('admin/proveedores/create', 'ProveedoresController@create')->middleware('permiso:proveedores.create'); 
+	Route::post('admin/proveedores/{id}/edit', 'ProveedoresController@update')->middleware('permiso:proveedores.update'); 
+	Route::get('admin/proveedores/{id}/edit', 'ProveedoresController@edit')->middleware('permiso:proveedores.edit'); 
+	Route::post('admin/proveedores/{id}/active', 'ProveedoresController@active')->middleware('permiso:proveedores.active'); 
+	Route::post('admin/proveedores/{id}/inactive', 'ProveedoresController@inactive')->middleware('permiso:proveedores.inactive'); 
+	Route::get('admin/proveedores/data/informacion', 'ProveedoresController@proveedores')->name('proveedores.datatable')->middleware('permiso:proveedores.datatable');
+
+
+
 });
